@@ -1,0 +1,18 @@
+<div [formGroup]="formGroup" class="mb-4">
+  <label for="name">
+    Email
+    <span *ngIf="required" class="text-red-500"> *</span>
+  </label>
+  <input
+    type="email"
+    id="email"
+    class="w-full"
+    pInputText
+    [formControl]="control"
+    [ngClass]="{'error': isInvalid}"
+  />
+
+  <div *ngIf="isInvalid" class="error-message">
+    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+  </div>
+</div>

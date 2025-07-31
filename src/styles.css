@@ -1,7 +1,17 @@
 @import "primeicons/primeicons.css";
+@import "tailwindcss";
+@plugin "tailwindcss-primeui";
 
-html,
-body {
-  height: 100%;
-  margin: 0;
+@custom-variant dark (&:where(.my-app-dark, .my-app-dark *)); 
+
+.error {
+  border: 1px solid red !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 1rem;
+  position: absolute;
+  font-weight: bold;
+  margin-top: 1px;
 }

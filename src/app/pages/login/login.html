@@ -1,0 +1,53 @@
+<main class="flex justify-center items-center min-h-screen">
+    <p-card header="Login" class="w-[25rem]">
+        <form #loginForm="ngForm" action="" (ngSubmit)="onLogin()">
+            <div class="field">
+                <label for="username">Nome</label>
+                <input 
+                    type="text" 
+                    id="name"
+                    name="name"
+                    #username="ngModel"
+                    pInputText
+                    [(ngModel)]="login.name"
+                    class="w-full"
+                    required
+                    minlength="3"
+                />
+            </div>
+
+            <div class="field">
+                <label for="username">Email</label>
+                <input 
+                    type="text" 
+                    id="email"
+                    name="email"
+                    #email="ngModel"
+                    pInputText
+                    [(ngModel)]="login.email"
+                    class="w-full"
+                    required
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                />
+                @if(email.invalid || email.touched) {
+                    <em class="block text-red-500">
+                        @if(email.errors?.['required']) {
+                            Email é obrigatório
+                        } @else if(email.errors?.['pattern']) {
+                            Formato de email inválido
+                        }
+                    </em>
+                }
+            </div>
+
+            <p-button 
+                label="Login" 
+                type="submit" 
+                [disabled]="loginForm.invalid"
+                class="w-full mt-4">
+            </p-button>
+        </form>
+    </p-card>
+
+</main>
+
