@@ -9,9 +9,8 @@
 }
 
 .error-message {
+  display: block;
   color: red;
   font-size: 1rem;
-  position: absolute;
   font-weight: bold;
-  margin-top: 1px;
 }

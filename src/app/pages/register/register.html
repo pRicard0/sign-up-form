@@ -16,11 +16,16 @@
                 [controlName]="'email'"
             />
 
+            <app-input-cpf 
+                [formGroup]="registerForm" 
+                [required]="true"
+                [controlName]="'cpf'"
+            />
+
             <p-button 
                 type="submit" 
                 label="Cadastrar"
                 class="w-full" 
-                [disabled]="registerForm.invalid"
             ></p-button>
         </form>
     </p-card>

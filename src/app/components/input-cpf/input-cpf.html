@@ -1,1 +1,21 @@
-<p>input-cpf works!</p>
+<div [formGroup]="formGroup" class="mb-4">
+  <label for="name">
+    CPF
+    <span aria-hidden="true" required class="text-red-500"> *</span>
+  </label>
+  <input
+    type="tel"
+    id="name"
+    class="w-full"
+    pInputText
+    mask="000.000.000-00"
+    placeholder="123.456.789-00"
+    appCpfValidator
+    [formControl]="control"
+    [ngClass]="{'error': isInvalid}"
+  />
+
+  <div *ngIf="isInvalid" class="error-message">
+    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+  </div>
+</div>

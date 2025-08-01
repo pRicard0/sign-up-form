@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -28,7 +28,7 @@ export class InputName {
   }
 
   get isInvalid(): string | null {
-    const control = this.formGroup.get(this.controlName);
+    const control = this.control;
     const maxChar = this.charSize ? this.charSize : '150';
     const minChar = this.minCharSize ? this.minCharSize : '3';;
     if (control?.invalid && (control.dirty || control.touched)) {
