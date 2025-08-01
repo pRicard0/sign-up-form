@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
-import { InputCpf } from "../../components/input-cpf/input-cpf";
 
 @Component({
   selector: 'app-register',
-  imports: [SharedModule, InputCpf],
+  imports: [SharedModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
@@ -22,7 +21,8 @@ export class Register {
       { 
         name: ['', [Validators.required, Validators.minLength(this.minTextCharSize), Validators.maxLength(this.maxTextCharSize)]],
         email: ['', [Validators.required, Validators.email]],
-        cpf: ['', [Validators.required]]
+        cpf: ['', [Validators.required]],
+        date: ['', [Validators.required]],
       }
     )
   }

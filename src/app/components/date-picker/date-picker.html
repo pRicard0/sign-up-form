@@ -1,0 +1,16 @@
+<div [formGroup]="formGroup" class="mb-4">
+  <label for="date">
+    Data de Nascimento
+    <span aria-hidden="true" *ngIf="required" class="text-red-500"> *</span>
+  </label>
+  <p-date-picker 
+    type="date"
+    id="date"
+    class="w-full rounded-md"
+    [formControl]="control"
+    [ngClass]="{'error': isInvalid}"
+  />
+  <div *ngIf="isInvalid" class="error-message">
+    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+  </div>
+</div>

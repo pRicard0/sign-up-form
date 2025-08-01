@@ -8,6 +8,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputName } from '../../components/input-name/input-name';
 import { InputEmail } from '../../components/input-email/input-email';
 import { InputCpf } from '../../components/input-cpf/input-cpf';
+import { DatePicker } from '../../components/date-picker/date-picker';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { InputCpf } from '../../components/input-cpf/input-cpf';
     DatePickerModule,
     InputName,
     InputEmail,
-    InputCpf
+    InputCpf,
+    DatePicker
   ],
   exports: [
     ReactiveFormsModule,
@@ -26,7 +28,9 @@ import { InputCpf } from '../../components/input-cpf/input-cpf';
     ButtonModule,
     DatePickerModule,
     InputName,
-    InputEmail
+    InputEmail,
+    InputCpf,
+    DatePicker
   ]
 })
 export class SharedModule {}
