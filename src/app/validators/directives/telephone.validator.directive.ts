@@ -29,9 +29,7 @@ export class TelephoneTypeValidatorDirective implements Validator {
 
     const isCelular = rawValue.length === 11 && rawValue[2] === '9';
     const isResidencial = rawValue.length === 10;
-
-    console.log("Passando por aqui: ", isCelular, isResidencial, type);
-
+    
     if (rawValue.length < 10) {
         return { minlength: true };
     } else if (rawValue.length === 11 && !isCelular) {

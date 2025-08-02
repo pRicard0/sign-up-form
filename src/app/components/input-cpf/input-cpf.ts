@@ -3,7 +3,7 @@ import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxMaskDirective } from 'ngx-mask';
-import { CpfValidatorDirective } from '../../directives/cpf.validator.directive';
+import { CpfValidatorDirective } from '../../validators/directives/cpf.validator.directive';
 
 @Component({
   selector: 'app-input-cpf',

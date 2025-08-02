@@ -1,0 +1,3 @@
+interface Contact {
+  name: string;
+}

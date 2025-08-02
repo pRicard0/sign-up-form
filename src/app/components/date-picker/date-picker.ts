@@ -20,6 +20,8 @@ export class DatePicker {
   @Input() required!: boolean;
   @Input() controlName!: string;
 
+  today = new Date();
+
   get control(): FormControl {
     return this.formGroup.get(this.controlName) as FormControl;
   }

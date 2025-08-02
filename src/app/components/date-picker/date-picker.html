@@ -8,6 +8,7 @@
     id="date"
     class="w-full rounded-md"
     placeholder="dia/mês/ano"
+    [maxDate]="today"
     [formControl]="control"
     [ngClass]="{'error': isInvalid}"
   />

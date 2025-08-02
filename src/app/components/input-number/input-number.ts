@@ -4,11 +4,7 @@ import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { NgxMaskDirective } from 'ngx-mask';
-import { TelephoneTypeValidatorDirective } from '../../directives/telephone.validator.directive';
-
-interface Contact {
-    name: string;
-}
+import { TelephoneTypeValidatorDirective } from '../../validators/directives/telephone.validator.directive';
 
 @Component({
   selector: 'app-input-number',
