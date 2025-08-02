@@ -3,11 +3,11 @@ import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxMaskDirective } from 'ngx-mask';
-import { CpfValidatorDirective } from '../../directives/cpf.validator.directives';
+import { CpfValidatorDirective } from '../../directives/cpf.validator.directive';
 
 @Component({
   selector: 'app-input-cpf',
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, NgxMaskDirective, CpfValidatorDirective ],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, NgxMaskDirective, CpfValidatorDirective],
   templateUrl: './input-cpf.html',
   styleUrl: './input-cpf.css',
   viewProviders: [
@@ -33,7 +33,7 @@ export class InputCpf {
         return 'Campo obrigatório';
       }
       if (control.hasError('invalidCPF')) {
-        return `Formato de CPF inválido`;
+        return `CPF inválido`;
       }
     }
     return null;

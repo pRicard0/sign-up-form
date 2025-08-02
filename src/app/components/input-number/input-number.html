@@ -1,1 +1,33 @@
-<p>input-number works!</p>
+<div [formGroup]="formGroup" class="mb-4">
+  <label for="telefone">
+    Contato
+    <span *ngIf="required" class="text-red-500"> *</span>
+  </label>
+
+  <div class="flex gap-2 items-start">
+    <p-select 
+    [options]="contacts"
+    [formControlName]="typeControlName"
+    (onChange)="onContactTypeChanged()"
+    optionLabel="name" 
+    class="w-full md:w-56" 
+    />
+
+    <!-- Campo de telefone com máscara dinâmica -->
+    <input
+      type="tel"
+      id="telefone"
+      class="w-full"
+      pInputText
+      mask="(00) 0000-0000||(00) 00000-0000"
+      placeholder="(99) 99999-9999"
+      [formControl]="control"
+      [appTelephoneTypeValidator]="typeControlName"
+      [ngClass]="{ 'error': isInvalid }"
+    />
+  </div>
+
+  <div *ngIf="isInvalid" class="error-message mt-1">
+    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+  </div>
+</div>

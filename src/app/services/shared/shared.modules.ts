@@ -9,6 +9,7 @@ import { InputName } from '../../components/input-name/input-name';
 import { InputEmail } from '../../components/input-email/input-email';
 import { InputCpf } from '../../components/input-cpf/input-cpf';
 import { DatePicker } from '../../components/date-picker/date-picker';
+import { InputNumber } from '../../components/input-number/input-number';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { DatePicker } from '../../components/date-picker/date-picker';
     InputName,
     InputEmail,
     InputCpf,
-    DatePicker
+    DatePicker,
+    InputNumber
   ],
   exports: [
     ReactiveFormsModule,
@@ -30,7 +32,8 @@ import { DatePicker } from '../../components/date-picker/date-picker';
     InputName,
     InputEmail,
     InputCpf,
-    DatePicker
+    DatePicker,
+    InputNumber
   ]
 })
 export class SharedModule {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
+import { InputNumber } from "../../components/input-number/input-number";
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,8 @@ export class Register {
         email: ['', [Validators.required, Validators.email]],
         cpf: ['', [Validators.required]],
         date: ['', [Validators.required]],
+        typeNumber: ['', [Validators.required]],
+        number: ['', [Validators.required, Validators.minLength(10)]],
       }
     )
   }
