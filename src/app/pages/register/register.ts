@@ -4,6 +4,8 @@ import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
 import { CountryService } from '../../services/country.service';
 import { stateInListValidator } from '../../validators/state-in-list.validator';
+import { countryInListValidator } from '../../validators/country-in-list.validator';
+import { toTitleCase } from '../../functions/toTitleCase';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +19,7 @@ export class Register {
   maxTextCharSize = 120;
   registerForm!: FormGroup;
   states: State[] = [];
+  countries: Country[] = [];
 
   constructor(
     private dep: ConstructorsService,
@@ -33,6 +36,17 @@ export class Register {
       number: ['', [Validators.required, Validators.minLength(10)]],
       country: ['', [Validators.required]],
       state: [{ value: '', disabled: true }, [Validators.required]]
+    });
+
+    this.countryService.getCountries().subscribe(countries => {
+      this.countries = countries;
+
+      const countryControl = this.registerForm.get('country');
+      countryControl?.setValidators([
+        Validators.required,
+        countryInListValidator(this.countries)
+      ]);
+      countryControl?.updateValueAndValidity();
     });
   }
 
@@ -58,8 +72,10 @@ export class Register {
 
       const formData = {
         ...raw,
-        country: typeof raw.country === 'object' ? raw.country.name : raw.country,
-        state: typeof raw.state === 'object' ? raw.state.name : raw.state
+        name: toTitleCase(raw.name),
+        email: raw.email.toLowerCase(),
+        country: toTitleCase(typeof raw.country === 'object' ? raw.country.name : raw.country),
+        state: toTitleCase(typeof raw.state === 'object' ? raw.state.name : raw.state)
       };
 
       console.log('Form submitted:', formData);

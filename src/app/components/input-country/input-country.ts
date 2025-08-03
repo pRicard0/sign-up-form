@@ -62,9 +62,8 @@ export class InputCountry {
   get isInvalid(): string | null {
     const control = this.control;
     if (control?.invalid && (control.dirty || control.touched)) {
-      if (control.hasError('required')) {
-        return 'Campo obrigatório';
-      }
+      if (control.hasError('required')) return 'Campo obrigatório';
+      if (control.hasError('invalidCountry')) return 'País inválido';
     }
     return null;
   }
