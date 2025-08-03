@@ -26,6 +26,14 @@ export class InputCpf {
     return this.formGroup.get(this.controlName) as FormControl;
   }
 
+  get isRequired(): boolean {
+    const control = this.formGroup.get(this.controlName);
+    if (!control || !control.validator) return false;
+
+    const validator = control.validator({} as any);
+    return validator && validator['required'];
+  }
+
   get isInvalid(): string | null {
     const control = this.control;
     if (control?.invalid && (control.dirty || control.touched)) {

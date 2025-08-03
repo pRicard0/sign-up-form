@@ -1,5 +1,5 @@
 <div [formGroup]="formGroup" class="mb-4">
-  <label for="name">
+  <label for="email">
     Email
     <span aria-hidden="true" *ngIf="required" class="text-red-500"> *</span>
   </label>
@@ -14,6 +14,6 @@
   />
 
   <div *ngIf="isInvalid" class="error-message">
-    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+    <small>{{ isInvalid }}</small>
   </div>
 </div>

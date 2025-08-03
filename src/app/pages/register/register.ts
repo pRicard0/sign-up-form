@@ -30,7 +30,7 @@ export class Register {
     this.registerForm = this.dep.fb.group({
       name: ['', [Validators.required, Validators.minLength(this.minTextCharSize), Validators.maxLength(this.maxTextCharSize)]],
       email: ['', [Validators.required, Validators.email]],
-      cpf: ['', [Validators.required]],
+      cpf: ['', []],
       date: ['', [Validators.required]],
       typeNumber: ['', [Validators.required]],
       number: ['', [Validators.required, Validators.minLength(10)]],
@@ -47,6 +47,43 @@ export class Register {
         countryInListValidator(this.countries)
       ]);
       countryControl?.updateValueAndValidity();
+    });
+
+
+    const cpfControl = this.registerForm.get('cpf');
+    const stateControl = this.registerForm.get('state');
+    this.registerForm.get('country')?.valueChanges.subscribe(value => {
+
+      const countryName = typeof value === 'object' ? value.name : value;
+      const matchedCountry = this.countries.find(c => c.name.toLowerCase() === countryName?.toLowerCase());
+
+      const isBrazil = matchedCountry?.name.toLowerCase() === 'brasil';
+
+      if (isBrazil) {
+        cpfControl?.setValidators([Validators.required]);
+      } else {
+        cpfControl?.clearValidators();
+        cpfControl?.setValue('');
+      }
+      cpfControl?.updateValueAndValidity();
+
+      stateControl?.reset();
+      stateControl?.disable();
+      stateControl?.clearValidators();
+      stateControl?.updateValueAndValidity();
+
+      if (matchedCountry) {
+        this.countryService.getStatesByCountryId(matchedCountry.id).subscribe(states => {
+          this.states = states;
+
+          stateControl?.enable();
+          stateControl?.setValidators([
+            Validators.required,
+            stateInListValidator(this.states)
+          ]);
+          stateControl?.updateValueAndValidity();
+        });
+      }
     });
   }
 

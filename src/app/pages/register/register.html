@@ -1,5 +1,5 @@
-<main class="flex justify-center items-center min-h-screen">
-  <p-card header="Cadastre-se" class="w-[25rem]">
+<main class="card-container">
+  <p-card header="Cadastre-se" class="min-w-[15rem]">
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <app-input-name 
         [formGroup]="registerForm" 
@@ -13,16 +13,39 @@
         [required]="true"
         [controlName]="'email'"
       />
-      <app-input-cpf 
-        [formGroup]="registerForm" 
-        [required]="true"
-        [controlName]="'cpf'"
-      />
-      <app-date-picker
-        [formGroup]="registerForm" 
-        [required]="true"
-        [controlName]="'date'"
-      />
+
+      <div class="flex justify-between space-x-2 flex-wrap">
+        <app-input-country 
+          class="flex-1 min-w-[10rem]"
+          [formGroup]="registerForm" 
+          [required]="true" 
+          controlName="country"
+          (countrySelected)="onCountrySelected($event)">
+        </app-input-country>
+
+        <app-input-state 
+          class="flex-1 min-w-[10rem]"
+          controlName="state"
+          [formGroup]="registerForm" 
+          [required]="true"
+          [states]="states">
+        </app-input-state>
+      </div>
+
+      <div class="flex justify-between space-x-2 flex-wrap">
+        <app-input-cpf 
+          class="flex-1 min-w-[10rem]"
+          [formGroup]="registerForm" 
+          [controlName]="'cpf'"
+        />
+        <app-date-picker
+          class="flex-1 min-w-[10rem]"
+          [formGroup]="registerForm" 
+          [required]="true"
+          [controlName]="'date'"
+        />
+      </div>
+
       <app-input-number 
         [formGroup]="registerForm" 
         [required]="true"
@@ -30,25 +53,9 @@
         [typeControlName]="'typeNumber'"
       />
 
-      <app-input-country 
-        [formGroup]="registerForm" 
-        [required]="true" 
-        controlName="country"
-        (countrySelected)="onCountrySelected($event)">
-      </app-input-country>
-
-      <app-input-state 
-        [formGroup]="registerForm" 
-        controlName="state"
-        [states]="states">
-      </app-input-state>
-
-      <p-button 
-        type="submit" 
-        label="Cadastrar"
-        class="w-full"
-        [disabled]="registerForm.invalid"
-      />
+      <button pButton type="submit" [disabled]="registerForm.invalid" class="mt-4 py-3 w-full text-lg">
+        <span pButtonLabel>Cadastrar</span>
+      </button>
     </form>
   </p-card>
 </main>

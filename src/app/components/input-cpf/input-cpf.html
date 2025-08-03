@@ -1,7 +1,7 @@
-<div [formGroup]="formGroup" class="mb-4">
+<div [formGroup]="formGroup" class="mb-4 flex flex-col">
   <label for="cpf">
     CPF
-    <span aria-hidden="true" required class="text-red-500"> *</span>
+    <span aria-hidden="true" *ngIf="isRequired" class="text-red-500"> *</span>
   </label>
   <input
     type="tel"
@@ -16,6 +16,6 @@
   />
 
   <div *ngIf="isInvalid" class="error-message">
-    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+    <small>{{ isInvalid }}</small>
   </div>
 </div>

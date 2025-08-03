@@ -20,6 +20,7 @@ import { CountryService } from '../../services/country.service';
 export class InputState {
   @Input() formGroup!: FormGroup;
   @Input() controlName!: string;
+  @Input() required!: boolean;
   @Input() states: State[] = [];
   filteredStates: State[] = [];
 

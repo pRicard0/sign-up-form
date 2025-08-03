@@ -1,21 +1,27 @@
 <div [formGroup]="formGroup" class="mb-4 flex flex-col">
   <label for="state">
     Estado
-    <span class="text-red-500">*</span>
+    <span aria-hidden="true" *ngIf="required" class="text-red-500"> *</span>
   </label>
   <p-autoComplete 
+    inputId="state"
     [formControl]="control"
     [suggestions]="filteredStates"
     (completeMethod)="filterState($event)"
+    [inputStyleClass]="isInvalid ? 'error w-full' : 'w-full'"
     optionLabel="name">
     <ng-template let-state #item>
       <div class="flex items-center gap-2">
         <div>{{ state.name }}</div>
       </div>
     </ng-template>
+
+    <ng-template #empty>
+      <div class="px-3 py-2">Nenhum resultado encontrado</div>
+    </ng-template>
   </p-autoComplete>
 
   <div *ngIf="isInvalid" class="error-message">
-    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+    <small>{{ isInvalid }}</small>
   </div>
 </div>

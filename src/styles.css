@@ -7,10 +7,21 @@
 .error {
   border: 1px solid red !important;
 }
+.error::placeholder {
+  color: red;
+}
 
 .error-message {
   display: block;
   color: red;
   font-size: 1rem;
   font-weight: bold;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 1rem;
 }

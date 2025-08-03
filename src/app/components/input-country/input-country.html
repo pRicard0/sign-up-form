@@ -1,14 +1,17 @@
 <div [formGroup]="formGroup" class="mb-4 flex flex-col">
-  <label for="name">
+  <label for="country">
     País
     <span aria-hidden="true" *ngIf="required" class="text-red-500"> *</span>
   </label>
-  <p-autocomplete 
+  <p-autocomplete
+    inputId="country"
+    placeholder="Digite"
+    optionLabel="name"
     [formControl]="control" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
     (onSelect)="onCountrySelected($event)"
-    optionLabel="name"
+    [inputStyleClass]="isInvalid ? 'error w-full' : 'w-full'"
   >
       <ng-template let-country #item>
           <div class="flex items-center gap-2">
@@ -18,9 +21,12 @@
       <ng-template #header>
           <div class="font-medium px-3 py-2">Países disponíveis</div>
       </ng-template>
+      <ng-template #empty>
+        <div class="px-3 py-2">Nenhum resultado encontrado</div>
+      </ng-template>
   </p-autocomplete>
 
   <div *ngIf="isInvalid" class="error-message">
-    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+    <small>{{ isInvalid }}</small>
   </div>
 </div>

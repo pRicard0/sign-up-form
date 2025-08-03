@@ -9,5 +9,7 @@ export const TRANSLATION_PT: Translation = {
   dateFormat: 'dd/mm/yy',
   today: 'Hoje',
   clear: 'Limpar',
-  weekHeader: 'Sem'
+  weekHeader: 'Sem',
+  emptyMessage: 'Nenhum resultado encontrado',
+  emptyFilterMessage: 'Nenhum resultado encontrado'
 }

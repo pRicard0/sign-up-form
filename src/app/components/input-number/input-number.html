@@ -5,14 +5,12 @@
   </label>
 
   <div class="flex gap-2 items-start">
-    <p-select 
+    <p-select
+    optionLabel="name"
     [options]="contacts"
     [formControlName]="typeControlName"
     (onChange)="onContactTypeChanged()"
-    optionLabel="name" 
-    class="w-full md:w-56" 
   />
-
     <input
       type="tel"
       id="telefone"
@@ -27,6 +25,6 @@
   </div>
 
   <div *ngIf="isInvalid" class="error-message mt-1">
-    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+    <small>{{ isInvalid }}</small>
   </div>
 </div>
