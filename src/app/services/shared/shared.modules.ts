@@ -10,6 +10,8 @@ import { InputEmail } from '../../components/input-email/input-email';
 import { InputCpf } from '../../components/input-cpf/input-cpf';
 import { DatePicker } from '../../components/date-picker/date-picker';
 import { InputNumber } from '../../components/input-number/input-number';
+import { InputCountry } from '../../components/input-country/input-country';
+import { InputState } from '../../components/input-state/input-state';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import { InputNumber } from '../../components/input-number/input-number';
     InputEmail,
     InputCpf,
     DatePicker,
-    InputNumber
+    InputNumber,
+    InputCountry,
+    InputState
   ],
   exports: [
     ReactiveFormsModule,
@@ -33,7 +37,9 @@ import { InputNumber } from '../../components/input-number/input-number';
     InputEmail,
     InputCpf,
     DatePicker,
-    InputNumber
+    InputNumber,
+    InputCountry,
+    InputState
   ]
 })
 export class SharedModule {}

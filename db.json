@@ -1,0 +1,114 @@
+{
+  "countries": [
+    {
+      "id": 5,
+      "name": "Alemanha",
+      "states": [
+        { "id": 1, "name": "Baviera" },
+        { "id": 2, "name": "Berlim" },
+        { "id": 3, "name": "Hamburgo" },
+        { "id": 4, "name": "Hessen" },
+        { "id": 5, "name": "Saxônia" },
+        { "id": 6, "name": "Nordrhein-Westfalen" },
+        { "id": 7, "name": "Baden-Württemberg" }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Argentina",
+      "states": [
+        { "id": 1, "name": "Buenos Aires" },
+        { "id": 2, "name": "Córdoba" },
+        { "id": 3, "name": "Santa Fe" },
+        { "id": 4, "name": "Mendoza" },
+        { "id": 5, "name": "Salta" },
+        { "id": 6, "name": "Tucumán" },
+        { "id": 7, "name": "Chaco" }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Austrália",
+      "states": [
+        { "id": 1, "name": "New South Wales" },
+        { "id": 2, "name": "Victoria" },
+        { "id": 3, "name": "Queensland" },
+        { "id": 4, "name": "Western Australia" },
+        { "id": 5, "name": "South Australia" },
+        { "id": 6, "name": "Tasmania" },
+        { "id": 7, "name": "Northern Territory" }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Brasil",
+      "states": [
+        { "id": 1, "name": "Ceará" },
+        { "id": 2, "name": "São Paulo" },
+        { "id": 3, "name": "Sergipe" },
+        { "id": 4, "name": "Bahia" },
+        { "id": 5, "name": "Santa Catarina" },
+        { "id": 6, "name": "Rio Grande do Norte" },
+        { "id": 7, "name": "Rio Grande do Sul" },
+        { "id": 8, "name": "Acre"},
+        { "id": 9, "name": "Roraima"},
+        { "id": 10, "name": "Rondônia"},
+        { "id": 11, "name": "Rio de Janeiro"},
+        { "id": 12, "name": "Pará"},
+        { "id": 13, "name": "Paraná"},
+        { "id": 14, "name": "Mato Grosso"},
+        { "id": 15, "name": "Mato Grosso do Sul"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Canadá",
+      "states": [
+        { "id": 1, "name": "Ontario" },
+        { "id": 2, "name": "Quebec" },
+        { "id": 3, "name": "British Columbia" },
+        { "id": 4, "name": "Alberta" },
+        { "id": 5, "name": "Manitoba" },
+        { "id": 6, "name": "Nova Scotia" },
+        { "id": 7, "name": "Saskatchewan" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Estados Unidos",
+      "states": [
+        { "id": 1, "name": "California" },
+        { "id": 2, "name": "Texas" },
+        { "id": 3, "name": "New York" },
+        { "id": 4, "name": "Florida" },
+        { "id": 5, "name": "Illinois" },
+        { "id": 6, "name": "Ohio" },
+        { "id": 7, "name": "Georgia" }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "França",
+      "states": []
+    },
+    {
+      "id": 7,
+      "name": "Japão",
+      "states": [
+        { "id": 1, "name": "Tóquio" },
+        { "id": 2, "name": "Osaka" },
+        { "id": 3, "name": "Kyoto" },
+        { "id": 4, "name": "Hokkaido" },
+        { "id": 5, "name": "Fukuoka" },
+        { "id": 6, "name": "Okinawa" },
+        { "id": 7, "name": "Aichi" }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Rússia",
+      "states": []
+    }
+  ],
+  "users": []
+}

@@ -25,7 +25,7 @@ export class InputEmail {
   }
 
   get isInvalid(): string | null {
-    const control = this.formGroup.get(this.controlName);
+    const control = this.control;
     if (control?.invalid && (control.dirty || control.touched)) {
       if (control.hasError('required')) {
         return 'Campo obrigatório';

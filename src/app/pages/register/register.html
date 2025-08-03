@@ -1,7 +1,6 @@
 <main class="flex justify-center items-center min-h-screen">
   <p-card header="Cadastre-se" class="w-[25rem]">
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        
       <app-input-name 
         [formGroup]="registerForm" 
         [required]="true"
@@ -30,6 +29,19 @@
         [controlName]="'number'"
         [typeControlName]="'typeNumber'"
       />
+
+      <app-input-country 
+        [formGroup]="registerForm" 
+        [required]="true" 
+        controlName="country"
+        (countrySelected)="onCountrySelected($event)">
+      </app-input-country>
+
+      <app-input-state 
+        [formGroup]="registerForm" 
+        controlName="state"
+        [states]="states">
+      </app-input-state>
 
       <p-button 
         type="submit" 

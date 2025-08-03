@@ -1,0 +1,21 @@
+<div [formGroup]="formGroup" class="mb-4 flex flex-col">
+  <label for="state">
+    Estado
+    <span class="text-red-500">*</span>
+  </label>
+  <p-autoComplete 
+    [formControl]="control"
+    [suggestions]="filteredStates"
+    (completeMethod)="filterState($event)"
+    optionLabel="name">
+    <ng-template let-state #item>
+      <div class="flex items-center gap-2">
+        <div>{{ state.name }}</div>
+      </div>
+    </ng-template>
+  </p-autoComplete>
+
+  <div *ngIf="isInvalid" class="error-message">
+    <small class="text-red-500 font-bold text-sm">{{ isInvalid }}</small>
+  </div>
+</div>
