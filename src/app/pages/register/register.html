@@ -1,6 +1,6 @@
 <main class="card-container">
   <p-card header="Cadastre-se" class="min-w-[15rem]">
-    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="flex flex-col space-y-2">
       <app-input-name 
         [formGroup]="registerForm" 
         [required]="true"
@@ -22,7 +22,7 @@
           controlName="country"
           (countrySelected)="onCountrySelected($event)">
         </app-input-country>
-
+        
         <app-input-state 
           class="flex-1 min-w-[10rem]"
           controlName="state"
@@ -42,16 +42,21 @@
           class="flex-1 min-w-[10rem]"
           [formGroup]="registerForm" 
           [required]="true"
-          [controlName]="'date'"
+          [controlName]="'birthDate'"
         />
       </div>
 
-      <app-input-number 
-        [formGroup]="registerForm" 
-        [required]="true"
-        [controlName]="'number'"
-        [typeControlName]="'typeNumber'"
-      />
+      <div>
+        <app-input-number 
+          [formGroup]="registerForm" 
+          [required]="true"
+          [controlName]="'number'"
+          [typeControlName]="'numberType'"
+        />
+        <div class="link">
+          <a routerLink="/login">Já tem uma conta?</a>
+        </div>
+      </div>
 
       <button pButton type="submit" [disabled]="registerForm.invalid" class="mt-4 py-3 w-full text-lg">
         <span pButtonLabel>Cadastrar</span>

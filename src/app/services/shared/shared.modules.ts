@@ -12,11 +12,13 @@ import { DatePicker } from '../../components/date-picker/date-picker';
 import { InputNumber } from '../../components/input-number/input-number';
 import { InputCountry } from '../../components/input-country/input-country';
 import { InputState } from '../../components/input-state/input-state';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterLink,
     CardModule,
     ButtonModule,
     DatePickerModule,
@@ -26,11 +28,12 @@ import { InputState } from '../../components/input-state/input-state';
     DatePicker,
     InputNumber,
     InputCountry,
-    InputState
+    InputState,
   ],
   exports: [
     ReactiveFormsModule,
     CardModule,
+    RouterLink,
     ButtonModule,
     DatePickerModule,
     InputName,

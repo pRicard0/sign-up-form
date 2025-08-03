@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
@@ -6,6 +6,10 @@ import { CountryService } from '../../services/country.service';
 import { stateInListValidator } from '../../validators/state-in-list.validator';
 import { countryInListValidator } from '../../validators/country-in-list.validator';
 import { toTitleCase } from '../../functions/toTitleCase';
+import { AuthService } from '../../services/auth.service';
+import { RegisterPostData } from '../../interfaces/registerPostData';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,9 +25,13 @@ export class Register {
   states: State[] = [];
   countries: Country[] = [];
 
+  private authService = inject(AuthService)
+  private messageService = inject(MessageService)
+  private router = inject(Router)
+
   constructor(
     private dep: ConstructorsService,
-    private countryService: CountryService
+    private countryService: CountryService,
   ) {}
 
   ngOnInit() {
@@ -31,8 +39,8 @@ export class Register {
       name: ['', [Validators.required, Validators.minLength(this.minTextCharSize), Validators.maxLength(this.maxTextCharSize)]],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', []],
-      date: ['', [Validators.required]],
-      typeNumber: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      numberType: ['', [Validators.required]],
       number: ['', [Validators.required, Validators.minLength(10)]],
       country: ['', [Validators.required]],
       state: [{ value: '', disabled: true }, [Validators.required]]
@@ -115,7 +123,27 @@ export class Register {
         state: toTitleCase(typeof raw.state === 'object' ? raw.state.name : raw.state)
       };
 
-      console.log('Form submitted:', formData);
+      this.authService.registerUser(formData as RegisterPostData).subscribe(
+        {
+          next: (response) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Conta criada com sucesso!'
+            })
+            console.log(response)
+          },
+          error: (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Parece que deu algum erro. Tente novamente mais tarde.'
+            })
+            this.router.navigate(['login'])
+            console.log(err)
+          }
+        }
+      )
     } else {
       console.log('Form is invalid', this.registerForm);
     }
