@@ -1,0 +1,28 @@
+<div class="flex gap-4 mb-4 items-center flex-wrap">
+  <div>
+    <label for="country" class="block text-sm font-medium text-gray-700">País</label>
+    <select
+      id="country"
+      [(ngModel)]="selectedCountry"
+      (change)="onFilterChange()"
+      class="border rounded px-3 py-1 w-48"
+    >
+      <option [ngValue]="null">Todos</option>
+      <option *ngFor="let country of countries" [ngValue]="country">{{ country }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="state" class="block text-sm font-medium text-gray-700">Estado</label>
+    <select
+      id="state"
+      [(ngModel)]="selectedState"
+      (change)="onFilterChange()"
+      class="border rounded px-3 py-1 w-48"
+    >
+      <option [ngValue]="null">Todos</option>
+      <option *ngFor="let state of states" [ngValue]="state">{{ state }}</option>
+    </select>
+  </div>
+</div>
+

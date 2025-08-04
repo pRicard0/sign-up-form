@@ -2,7 +2,7 @@ export interface RegisterPostData {
     name: string,
     email: string,
     country: string,
-    date: Date,
+    birthDate: Date,
     state: string,
     cpf: string,
     number: string,

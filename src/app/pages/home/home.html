@@ -1,5 +1,64 @@
-<main class="card-container">
-    <p>home works!</p>
-    <p-button label="Sign Out" (onClick)="logout()"/>
-</main>
+<main class="min-h-screen flex flex-col bg-gray-100">
+  <header class="bg-white h-12 border-b border-gray-200 flex items-center px-6 shrink-0">
+    <button class="flex items-center pr-8 md:hidden">
+      <i class="pi pi-bars text-3xl"></i>
+    </button>
+    <div class="text-xl space-x-6">
+      <a href="#">Home</a>
+      <a href="#">Novo Cliente</a>
+    </div>
+  </header>
 
+  <div class="flex flex-1 w-full">
+    @if (loggedUser$ | async; as loggedUser) {
+      <app-profile-card [user]="loggedUser" [logout]="logout.bind(this)" />
+    } @else {
+      <app-profile-card [user]="null" [logout]="logout.bind(this)" />
+    }
+
+    <section class="flex flex-col justify-between flex-1 px-6 pt-6 overflow-y-auto">
+      <div>
+        <app-client-filters (filterChanged)="onFiltersChanged($event)"></app-client-filters>
+        <div class="flex justify-end mb-4">
+          <button
+            pButton
+            icon="pi pi-plus"
+            label="Novo Cliente"
+            class="p-button-success"
+            (click)="createNew()">
+          </button>
+        </div>
+        @if (users$ | async; as users) {
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            @for (user of users; track user.id) {
+              <div class="p-2">
+                <app-client-card [user]="user"></app-client-card>
+                <div class="flex gap-2 mt-2 justify-end">
+                  <button
+                    pButton
+                    icon="pi pi-pencil"
+                    class="p-button-warning"
+                    (click)="editUser(user)">
+                  </button>
+                  <button
+                    pButton
+                    icon="pi pi-trash"
+                    class="p-button-danger"
+                    (click)="deleteUser(user)">
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+      <p-paginator
+        [rows]="6"
+        [totalRecords]="usersLength$ | async"
+        [rowsPerPageOptions]="[3, 6, 9]"
+        (onPageChange)="onPageChange($event)"
+        class="mt-6"
+      />
+    </section>
+  </div>
+</main>

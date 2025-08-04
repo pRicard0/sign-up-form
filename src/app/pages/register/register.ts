@@ -131,6 +131,7 @@ export class Register {
               summary: 'Sucesso',
               detail: 'Conta criada com sucesso!'
             })
+            this.router.navigate(['login'])
             console.log(response)
           },
           error: (err) => {
@@ -139,7 +140,6 @@ export class Register {
               summary: 'Erro',
               detail: 'Parece que deu algum erro. Tente novamente mais tarde.'
             })
-            this.router.navigate(['login'])
             console.log(err)
           }
         }

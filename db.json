@@ -283,19 +283,6 @@
   ],
   "users": [
     {
-      "id": "ebfe",
-      "name": "Teste",
-      "email": "teste@g",
-      "cpf": "11111111111",
-      "birthDate": "2025-08-01T03:00:00.000Z",
-      "numberType": {
-        "name": "Residencial"
-      },
-      "number": "1222222221",
-      "country": "Alemanha",
-      "state": "Baviera"
-    },
-    {
       "id": "f965",
       "name": "Teste2",
       "email": "teste2@g.com",
@@ -307,6 +294,149 @@
       "number": "1223333332",
       "country": "Estados Unidos",
       "state": "California"
+    },
+    {
+      "id": "54d1",
+      "name": "Carla Mendes",
+      "email": "carla.mendes92@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-07-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Celular"
+      },
+      "number": "99999999990",
+      "country": "Argentina",
+      "state": "Buenos Aires"
+    },
+    {
+      "id": "ca29",
+      "name": "Rafael Tavares",
+      "email": "rafael.tavares84@yahoo.com",
+      "cpf": "78524830387",
+      "birthDate": "2025-08-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "8599999999",
+      "country": "Brasil",
+      "state": "Ceará"
+    },
+    {
+      "id": "f3d5",
+      "name": "Juliana Rocha",
+      "email": "juliana.rocha21@outlook.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1245555555",
+      "country": "Canadá",
+      "state": "Alberta"
+    },
+    {
+      "id": "2629",
+      "name": "Bruno Silveira",
+      "email": "bruno.silveira@live.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1223333332",
+      "country": "Brasil",
+      "state": "Rio Grande Do Norte"
+    },
+    {
+      "id": "da13",
+      "name": "Fernanda Lima",
+      "email": "fernanda.lima99@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-01T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1223333333",
+      "country": "Brasil",
+      "state": "Rio Grande Do Sul"
+    },
+    {
+      "id": "87a7",
+      "name": "Lucas Almeida Ferreira Barbosa",
+      "email": "lucas.almeida88@hotmail.com",
+      "cpf": "",
+      "birthDate": "2025-08-01T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1245555555",
+      "country": "Austrália",
+      "state": "New South Wales"
+    },
+    {
+      "id": "69e3",
+      "name": "Patrícia Souza",
+      "email": "patricia.souza@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1223333332",
+      "country": "Brasil",
+      "state": "Rio De Janeiro"
+    },
+    {
+      "id": "1b42",
+      "name": "André Costa",
+      "email": "andre.costa77@uol.com.br",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "8599999999",
+      "country": "Brasil",
+      "state": "Ceará"
+    },
+    {
+      "id": "a1bb",
+      "name": "Marina Duarte De Sousa Oliveira",
+      "email": "marina.duarte23@yahoo.com.br",
+      "cpf": "62756502308",
+      "birthDate": "2025-08-02T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1292322222",
+      "country": "Brasil",
+      "state": "Ceará"
+    },
+    {
+      "id": "2fe7",
+      "name": "Thiago Ribeiro Silva Bastos",
+      "email": "thiago.ribeiro@terra.com.br",
+      "cpf": "23222222222",
+      "birthDate": "2025-08-01T03:00:00.000Z",
+      "numberType": {
+        "name": "Celular"
+      },
+      "number": "85999999992",
+      "country": "Brasil",
+      "state": "Ceará"
+    },
+    {
+      "id": "7d2f",
+      "name": "Paulo Ricardo Barbosa",
+      "email": "pauloricardo.2011@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2004-02-13T03:00:00.000Z",
+      "numberType": {
+        "name": "Celular"
+      },
+      "number": "85999999998",
+      "country": "Brasil",
+      "state": "Ceará"
     }
   ]
 }

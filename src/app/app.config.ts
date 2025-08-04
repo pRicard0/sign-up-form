@@ -7,6 +7,10 @@ import Aura from '@primeuix/themes/aura';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { deleteUserEffect, getUserDetailsEffect, getUsersEffect } from './store/user.effects';
+import { appReducers } from './store/app.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,17 +22,19 @@ export const appConfig: ApplicationConfig = {
     provideEnvironmentNgxMask(),
     providePrimeNG({
         theme: {
-          preset: Aura,
-          options: {
-            prefix: 'p',
-            darkModeSelector: '.my-app-dark',
-            cssLayer: {
-              name: 'primeng',
-              order: 'theme, base, primeng'
+            preset: Aura,
+            options: {
+                prefix: 'p',
+                darkModeSelector: '.my-app-dark',
+                cssLayer: {
+                    name: 'primeng',
+                    order: 'theme, base, primeng'
+                }
             }
-          }
         },
         ripple: true,
-    })
-  ]
+    }),
+    provideStore(appReducers),
+    provideEffects({getUsersEffect, getUserDetailsEffect, deleteUserEffect})
+    ]
 };

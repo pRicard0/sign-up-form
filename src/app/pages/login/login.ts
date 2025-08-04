@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class Login {
   private authService = inject(AuthService)
   private router = inject(Router)
   private messageService = inject(MessageService)
+  store = inject(Store)
 
   constructor(
     private dep: ConstructorsService,

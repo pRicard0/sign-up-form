@@ -13,6 +13,10 @@ import { InputNumber } from '../../components/input-number/input-number';
 import { InputCountry } from '../../components/input-country/input-country';
 import { InputState } from '../../components/input-state/input-state';
 import { RouterLink } from '@angular/router';
+import { ProfileCard } from '../../components/profile-card/profile-card';
+import { ClientCard } from '../../components/client-card/client-card';
+import { ClientFilters } from '../../components/client-filters/client-filters';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   imports: [
@@ -29,6 +33,10 @@ import { RouterLink } from '@angular/router';
     InputNumber,
     InputCountry,
     InputState,
+    ProfileCard,
+    ClientCard,
+    ClientFilters,
+    PaginatorModule,
   ],
   exports: [
     ReactiveFormsModule,
@@ -42,7 +50,11 @@ import { RouterLink } from '@angular/router';
     DatePicker,
     InputNumber,
     InputCountry,
-    InputState
+    InputState,
+    ProfileCard,
+    ClientCard,
+    ClientFilters,
+    PaginatorModule
   ]
 })
 export class SharedModule {}

@@ -15,7 +15,16 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/users`, postData)
   }
 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/users`)
+  }
+
   getUserDetails(email: string): Observable<User[]> {
+    console.log("Executando getUserDetails")
     return this.http.get<User[]>(`${this.baseUrl}/users?email=${email}`)
+  }
+
+  deleteUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/users/${id}`);
   }
 }
