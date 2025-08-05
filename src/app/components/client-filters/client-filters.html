@@ -1,28 +1,34 @@
-<div class="flex gap-4 mb-4 items-center flex-wrap">
+<div [formGroup]="form" class="flex gap-4 mb-4 items-end flex-wrap">
   <div>
     <label for="country" class="block text-sm font-medium text-gray-700">País</label>
-    <select
-      id="country"
-      [(ngModel)]="selectedCountry"
-      (change)="onFilterChange()"
-      class="border rounded px-3 py-1 w-48"
-    >
-      <option [ngValue]="null">Todos</option>
-      <option *ngFor="let country of countries" [ngValue]="country">{{ country }}</option>
-    </select>
+    <p-select
+      inputId="country"
+      formControlName="country"
+      [options]="countriesList"
+      optionLabel="name"
+      placeholder="Todos"
+      class="w-48"
+    ></p-select>
   </div>
 
   <div>
     <label for="state" class="block text-sm font-medium text-gray-700">Estado</label>
-    <select
-      id="state"
-      [(ngModel)]="selectedState"
-      (change)="onFilterChange()"
-      class="border rounded px-3 py-1 w-48"
-    >
-      <option [ngValue]="null">Todos</option>
-      <option *ngFor="let state of states" [ngValue]="state">{{ state }}</option>
-    </select>
+    <p-select
+      inputId="state"
+      formControlName="state"
+      [options]="statesList"
+      optionLabel="name"
+      placeholder="Todos"
+      class="w-48"
+      [disabled]="!!form.get('state')?.disabled"
+    ></p-select>
   </div>
-</div>
 
+  
+  <p-button
+    type="button"
+    label="Limpar filtros"
+    class=""
+    (click)="clearFilters()"
+  ></p-button>
+</div>

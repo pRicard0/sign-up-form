@@ -17,8 +17,8 @@ export interface UserState {
   loggedUserStatus: LoadStatus;
   deleteUserStatus: LoadStatus;
   filters: {
-    country: string | null;
-    state: string | null;
+    country: Country | null;
+    state: State | null;
   }
   page: number;
   pageSize: number;

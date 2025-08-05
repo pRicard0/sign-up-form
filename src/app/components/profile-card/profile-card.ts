@@ -7,6 +7,7 @@ import { User } from '../../interfaces/user';
 import { formatCpf } from '../../functions/formatCpf';
 import { formatPhoneNumber } from '../../functions/formatPhoneNumber';
 import { formatDate } from '../../functions/formatDate';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-profile-card',
@@ -18,7 +19,9 @@ import { formatDate } from '../../functions/formatDate';
 export class ProfileCard {
   @Input() user: User | null = null;
 
-  @Input() logout!: () => void; // receber função do pai
+  @Input() logout!: () => void;
+
+  constructor(public sidebarService: SidebarService) {}
 
   get formattedCpf(): string {
     return this.user ? formatCpf(this.user.cpf) : '';

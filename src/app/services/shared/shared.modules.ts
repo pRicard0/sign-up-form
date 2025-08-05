@@ -17,6 +17,7 @@ import { ProfileCard } from '../../components/profile-card/profile-card';
 import { ClientCard } from '../../components/client-card/client-card';
 import { ClientFilters } from '../../components/client-filters/client-filters';
 import { PaginatorModule } from 'primeng/paginator';
+import { Header } from '../../components/header/header';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { PaginatorModule } from 'primeng/paginator';
     ClientCard,
     ClientFilters,
     PaginatorModule,
+    Header
   ],
   exports: [
     ReactiveFormsModule,
@@ -54,7 +56,8 @@ import { PaginatorModule } from 'primeng/paginator';
     ProfileCard,
     ClientCard,
     ClientFilters,
-    PaginatorModule
+    PaginatorModule,
+    Header
   ]
 })
 export class SharedModule {}

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '../../services/country.service';
 
 interface AutoCompleteCompleteEvent {
@@ -26,7 +26,6 @@ export class InputCountry {
   @Input() formGroup!: FormGroup;
   @Input() required!: boolean;
   @Input() controlName!: string;
-  @Output() countrySelected = new EventEmitter<Country>();
 
   private countryService = inject(CountryService)
   countriesList!: Country[];
@@ -51,12 +50,6 @@ export class InputCountry {
     this.filteredCountries = list.filter(
       country => country.name.toLowerCase().startsWith(query)
     );
-  }
-
-  onCountrySelected(event: AutoCompleteSelectEvent) {
-    const selectedCountry = event.value as Country;
-    this.control.setValue(selectedCountry);
-    this.countrySelected.emit(selectedCountry);
   }
 
   get isInvalid(): string | null {

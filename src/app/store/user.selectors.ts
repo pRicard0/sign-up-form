@@ -13,12 +13,35 @@ export const userDetailsSelector = createSelector(
   (state) => state.loggedUser
 );
 
+export const filtersSelector = createSelector(
+  selectUserState,
+  (state) => state.filters
+);
+
 export const paginatedUsersSelector = createSelector(
   usersSelector,
-  (state: AppState) => state.usersState.page,
-  (state: AppState) => state.usersState.pageSize,
-  (users, page, pageSize) => {
-    const start = page * pageSize;
-    return users.slice(start, start + pageSize);
+  filtersSelector,
+  selectUserState,
+  (users, filters, state) => {
+    const filtered = users.filter(user => {
+      const countryMatch = !filters.country || user.country === filters.country.name;
+      const stateMatch = !filters.state || user.state === filters.state.name;
+      return countryMatch && stateMatch;
+    });
+
+    const startIndex = state.page * state.pageSize;
+    return filtered.slice(startIndex, startIndex + state.pageSize);
+  }
+);
+
+export const usersLengthSelector = createSelector(
+  usersSelector,
+  filtersSelector,
+  (users, filters) => {
+    return users.filter(user => {
+      const countryMatch = !filters.country || user.country === filters.country.name;
+      const stateMatch = !filters.state || user.state === filters.state.name;
+      return countryMatch && stateMatch;
+    }).length;
   }
 );

@@ -1,15 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
 import { CountryService } from '../../services/country.service';
-import { stateInListValidator } from '../../validators/state-in-list.validator';
-import { countryInListValidator } from '../../validators/country-in-list.validator';
-import { toTitleCase } from '../../functions/toTitleCase';
-import { AuthService } from '../../services/auth.service';
-import { RegisterPostData } from '../../interfaces/registerPostData';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { CreateEdit } from '../../services/create-edit';
+import { buildUserForm } from '../../services/shared/user-form.builder';
+import { TOASTMESSAGE } from '../../services/shared/toast-message';
 
 @Component({
   selector: 'app-register',
@@ -18,134 +14,47 @@ import { Router } from '@angular/router';
   styleUrl: './register.css',
   providers: [CountryService] 
 })
-export class Register {
-  minTextCharSize = 3;
-  maxTextCharSize = 120;
-  registerForm!: FormGroup;
-  states: State[] = [];
-  countries: Country[] = [];
+export class Register extends CreateEdit {
+  isLogged!: string | null;
 
-  private authService = inject(AuthService)
-  private messageService = inject(MessageService)
-  private router = inject(Router)
+  constructor(private dep: ConstructorsService) {
+    super(inject(FormBuilder), inject(CountryService))
+  }
 
-  constructor(
-    private dep: ConstructorsService,
-    private countryService: CountryService,
-  ) {}
 
   ngOnInit() {
-    this.registerForm = this.dep.fb.group({
-      name: ['', [Validators.required, Validators.minLength(this.minTextCharSize), Validators.maxLength(this.maxTextCharSize)]],
-      email: ['', [Validators.required, Validators.email]],
-      cpf: ['', []],
-      birthDate: ['', [Validators.required]],
-      numberType: ['', [Validators.required]],
-      number: ['', [Validators.required, Validators.minLength(10)]],
-      country: ['', [Validators.required]],
-      state: [{ value: '', disabled: true }, [Validators.required]]
-    });
+    this.formValue = buildUserForm(this.dep.fb); 
 
     this.countryService.getCountries().subscribe(countries => {
-      this.countries = countries;
-
-      const countryControl = this.registerForm.get('country');
-      countryControl?.setValidators([
-        Validators.required,
-        countryInListValidator(this.countries)
-      ]);
-      countryControl?.updateValueAndValidity();
+      this.setCountryValidator(countries);
     });
 
+    this.isLogged = localStorage.getItem('email')
+  }
 
-    const cpfControl = this.registerForm.get('cpf');
-    const stateControl = this.registerForm.get('state');
-    this.registerForm.get('country')?.valueChanges.subscribe(value => {
+  protected override onSubmit(formattedData: any): void {
+    this.authService.registerUser(formattedData).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: TOASTMESSAGE.CREATESUCCESS
+        });
 
-      const countryName = typeof value === 'object' ? value.name : value;
-      const matchedCountry = this.countries.find(c => c.name.toLowerCase() === countryName?.toLowerCase());
-
-      const isBrazil = matchedCountry?.name.toLowerCase() === 'brasil';
-
-      if (isBrazil) {
-        cpfControl?.setValidators([Validators.required]);
-      } else {
-        cpfControl?.clearValidators();
-        cpfControl?.setValue('');
-      }
-      cpfControl?.updateValueAndValidity();
-
-      stateControl?.reset();
-      stateControl?.disable();
-      stateControl?.clearValidators();
-      stateControl?.updateValueAndValidity();
-
-      if (matchedCountry) {
-        this.countryService.getStatesByCountryId(matchedCountry.id).subscribe(states => {
-          this.states = states;
-
-          stateControl?.enable();
-          stateControl?.setValidators([
-            Validators.required,
-            stateInListValidator(this.states)
-          ]);
-          stateControl?.updateValueAndValidity();
+        if(this.isLogged) {
+          this.router.navigate(['home'])
+        } else {
+          this.router.navigate(['login']);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: TOASTMESSAGE.ERROR
         });
       }
     });
-  }
-
-  onCountrySelected(country: Country) {
-    const stateControl = this.registerForm.get('state');
-    stateControl?.enable();
-    stateControl?.reset();
-
-    this.countryService.getStatesByCountryId(country.id).subscribe(states => {
-      this.states = states;
-
-      stateControl?.setValidators([
-        Validators.required,
-        stateInListValidator(this.states)
-      ]);
-      stateControl?.updateValueAndValidity();
-    });
-  }
-
-  onRegister() {
-    if (this.registerForm.valid) {
-      const raw = this.registerForm.value;
-
-      const formData = {
-        ...raw,
-        name: toTitleCase(raw.name),
-        email: raw.email.toLowerCase(),
-        country: toTitleCase(typeof raw.country === 'object' ? raw.country.name : raw.country),
-        state: toTitleCase(typeof raw.state === 'object' ? raw.state.name : raw.state)
-      };
-
-      this.authService.registerUser(formData as RegisterPostData).subscribe(
-        {
-          next: (response) => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Conta criada com sucesso!'
-            })
-            this.router.navigate(['login'])
-            console.log(response)
-          },
-          error: (err) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erro',
-              detail: 'Parece que deu algum erro. Tente novamente mais tarde.'
-            })
-            console.log(err)
-          }
-        }
-      )
-    } else {
-      console.log('Form is invalid', this.registerForm);
-    }
   }
 }

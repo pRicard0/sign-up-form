@@ -3,11 +3,12 @@ import { SharedModule } from '../../services/shared/shared.modules';
 import { Router } from '@angular/router';
 import { userActions } from '../../store/user.actions';
 import { Store } from '@ngrx/store';
-import { userDetailsSelector, usersSelector, paginatedUsersSelector } from '../../store/user.selectors';
+import { userDetailsSelector, paginatedUsersSelector, usersLengthSelector } from '../../store/user.selectors';
 import { AsyncPipe } from '@angular/common';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { PaginatorState } from 'primeng/paginator';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,11 @@ export class Home implements OnInit {
   store = inject(Store)
   
   users$: Observable<User[]> = this.store.select(paginatedUsersSelector);
-  usersLength$ = this.store.select(usersSelector).pipe(map(users => users.length));
+  usersLength$ = this.store.select(usersLengthSelector);
   loggedUser$: Observable<User | null> = this.store.select(userDetailsSelector)
   filters$ = this.store.select((state) => state.usersState.filters);
+
+  constructor(public sidebarService: SidebarService) {}
 
   ngOnInit(): void {
     this.store.dispatch(userActions.getUsers());
@@ -34,12 +37,12 @@ export class Home implements OnInit {
     }
   }
 
-  onFiltersChanged(filters: { country: string | null; state: string | null }) {
+  onFiltersChanged(filters: { country: any; state: any }) {
     this.store.dispatch(userActions.setFilters({ filters }));
   }
 
   createNew() {
-    this.router.navigate(['/clientes/novo']);
+    this.router.navigate(['/cadastro']);
   }
 
   editUser(user: User) {

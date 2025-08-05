@@ -10,8 +10,7 @@ const loadedUserDetails = createAction('[Users] Loaded User details', props<{ us
 const deleteUser = createAction('[Users] Delete User', props<{ id: string }>());
 const deleteUserSuccess = createAction('[Users] Delete User Success', props<{ id: string }>());
 
-const setFilters = createAction('[Users] Set Filters', props<{ filters: { country: string | null; state: string | null } }>());
-
+const setFilters = createAction('[Users] Set Filters', props<{ filters: { country: Country | null; state: State | null } }>());
 const setPage = createAction('[User] Set Page', props<{ page: number; pageSize: number }>());
 
 

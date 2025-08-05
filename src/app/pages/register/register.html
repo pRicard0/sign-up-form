@@ -1,15 +1,15 @@
 <main class="card-container">
   <p-card header="Cadastre-se" class="min-w-[15rem]">
-    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="flex flex-col space-y-2">
+    <form [formGroup]="formValue" (ngSubmit)="submit()" class="flex flex-col space-y-2">
       <app-input-name 
-        [formGroup]="registerForm" 
+        [formGroup]="formValue" 
         [required]="true"
         [controlName]="'name'"
         charSize={{maxTextCharSize}}
         minCharSize={{minTextCharSize}}
       />
       <app-input-email 
-        [formGroup]="registerForm" 
+        [formGroup]="formValue" 
         [required]="true"
         [controlName]="'email'"
       />
@@ -17,16 +17,15 @@
       <div class="flex justify-between space-x-2 flex-wrap">
         <app-input-country 
           class="flex-1 min-w-[10rem]"
-          [formGroup]="registerForm" 
+          [formGroup]="formValue" 
           [required]="true" 
-          controlName="country"
-          (countrySelected)="onCountrySelected($event)">
+          controlName="country">
         </app-input-country>
         
         <app-input-state 
           class="flex-1 min-w-[10rem]"
           controlName="state"
-          [formGroup]="registerForm" 
+          [formGroup]="formValue" 
           [required]="true"
           [states]="states">
         </app-input-state>
@@ -35,12 +34,12 @@
       <div class="flex justify-between space-x-2 flex-wrap">
         <app-input-cpf 
           class="flex-1 min-w-[10rem]"
-          [formGroup]="registerForm" 
+          [formGroup]="formValue" 
           [controlName]="'cpf'"
         />
         <app-date-picker
           class="flex-1 min-w-[10rem]"
-          [formGroup]="registerForm" 
+          [formGroup]="formValue" 
           [required]="true"
           [controlName]="'birthDate'"
         />
@@ -48,17 +47,23 @@
 
       <div>
         <app-input-number 
-          [formGroup]="registerForm" 
+          [formGroup]="formValue" 
           [required]="true"
           [controlName]="'number'"
           [typeControlName]="'numberType'"
         />
-        <div class="link">
-          <a routerLink="/login">Já tem uma conta?</a>
-        </div>
+        @if (isLogged) {
+          <div class="link">
+            <a routerLink="/home">Voltar</a>
+          </div>
+        } @else {
+          <div class="link">
+            <a routerLink="/login">Já tem uma conta?</a>
+          </div>
+        }
       </div>
 
-      <button pButton type="submit" [disabled]="registerForm.invalid" class="mt-4 py-3 w-full text-lg">
+      <button pButton type="submit" [disabled]="formValue.invalid" class="mt-4 py-3 w-full text-lg">
         <span pButtonLabel>Cadastrar</span>
       </button>
     </form>
