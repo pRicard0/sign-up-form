@@ -1,13 +1,15 @@
 <main class="card-container">
-  <p-card header="Cadastre-se" class="min-w-[15rem]">
+  <p-card header="Editar Usuário" class="min-w-[15rem]">
     <form [formGroup]="formValue" (ngSubmit)="submit()" class="flex flex-col space-y-2">
-      <app-input-name 
+      
+      <app-input-name
         [formGroup]="formValue" 
         [required]="true"
         [controlName]="'name'"
-        charSize={{maxTextCharSize}}
-        minCharSize={{minTextCharSize}}
+        charSize="{{ maxTextCharSize }}"
+        minCharSize="{{ minTextCharSize }}"
       />
+
       <app-input-email 
         [formGroup]="formValue" 
         [required]="true"
@@ -19,12 +21,12 @@
           class="flex-1 min-w-[10rem]"
           [formGroup]="formValue" 
           [required]="true" 
-          controlName="country">
+          [controlName]="'country'">
         </app-input-country>
         
         <app-input-state 
           class="flex-1 min-w-[10rem]"
-          controlName="state"
+          [controlName]="'state'"
           [formGroup]="formValue" 
           [required]="true"
           [states]="states">
@@ -52,20 +54,16 @@
           [controlName]="'number'"
           [typeControlName]="'numberType'"
         />
-        @if (isLogged) {
-          <div class="link">
-            <a [routerLink]="URL.HOME_URL">Voltar</a>
-          </div>
-        } @else {
-          <div class="link">
-            <a [routerLink]="URL.LOGIN_URL">Já tem uma conta?</a>
-          </div>
-        }
+
+        <div class="link mt-2">
+          <a [routerLink]="URL.HOME_URL">Voltar</a>
+        </div>
       </div>
 
       <button pButton type="submit" [disabled]="formValue.invalid" class="mt-4 py-3 w-full text-lg">
-        <span pButtonLabel>Cadastrar</span>
+        <span pButtonLabel>Salvar Alterações</span>
       </button>
     </form>
   </p-card>
 </main>
+

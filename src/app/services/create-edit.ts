@@ -7,6 +7,7 @@ import { inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { URL } from './shared/strings';
 
 export abstract class CreateEdit {
   protected minTextCharSize = 3;
@@ -20,6 +21,8 @@ export abstract class CreateEdit {
   public messageService = inject(MessageService)
   public router = inject(Router)
   public authService = inject(AuthService)
+
+  public URL = URL
 
   constructor(fb: FormBuilder, countryService: CountryService) {
     this.fb = fb;
@@ -70,14 +73,8 @@ export abstract class CreateEdit {
         cpfControl?.setValidators([Validators.required]);
       } else {
         cpfControl?.clearValidators();
-        cpfControl?.setValue('');
       }
       cpfControl?.updateValueAndValidity();
-
-      stateControl?.reset();
-      stateControl?.disable();
-      stateControl?.clearValidators();
-      stateControl?.updateValueAndValidity();
 
       if (matchedCountry) {
         this.countryService.getStatesByCountryId(matchedCountry.id).subscribe(states => {
@@ -90,6 +87,11 @@ export abstract class CreateEdit {
           ]);
           stateControl?.updateValueAndValidity();
         });
+      } else {
+        stateControl?.reset();
+        stateControl?.disable();
+        stateControl?.clearValidators();
+        stateControl?.updateValueAndValidity();
       }
     });
   }

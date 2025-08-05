@@ -34,7 +34,14 @@
     </ng-template>
   </div>
 
-  <button pButton [disabled]="!user" class="mt-4 w-full text-lg" (click)="logout()">
-    <span pButtonLabel>Sair</span>
-  </button>
+  <div>
+    <button pButton class="mt-4 w-full text-lg" (click)="onEdit()">
+      <span pButtonLabel>Editar</span>
+    </button>
+
+    <button class="mt-4 w-full text-lg text-red-500 hover:cursor-pointer hover:underline" (click)="logout()">
+      <span pButtonLabel>Sair</span>
+    </button>
+  </div>
+
 </section>

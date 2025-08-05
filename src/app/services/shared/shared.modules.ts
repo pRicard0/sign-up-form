@@ -18,6 +18,7 @@ import { ClientCard } from '../../components/client-card/client-card';
 import { ClientFilters } from '../../components/client-filters/client-filters';
 import { PaginatorModule } from 'primeng/paginator';
 import { Header } from '../../components/header/header';
+import { ModalConfirmation } from '../../components/modal-confirmation/modal-confirmation';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { Header } from '../../components/header/header';
     ClientCard,
     ClientFilters,
     PaginatorModule,
-    Header
+    Header,
+    ModalConfirmation
   ],
   exports: [
     ReactiveFormsModule,
@@ -57,7 +59,8 @@ import { Header } from '../../components/header/header';
     ClientCard,
     ClientFilters,
     PaginatorModule,
-    Header
+    Header,
+    ModalConfirmation
   ]
 })
 export class SharedModule {}

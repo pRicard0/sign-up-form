@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
 import { SharedModule } from '../../services/shared/shared.modules';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -17,8 +17,8 @@ import { SidebarService } from '../../services/sidebar.service';
   styleUrls: ['./profile-card.css'],
 })
 export class ProfileCard {
-  @Input() user: User | null = null;
-
+  @Input() user!: User;
+  @Output() editEvent = new EventEmitter<string>();
   @Input() logout!: () => void;
 
   constructor(public sidebarService: SidebarService) {}
@@ -33,5 +33,9 @@ export class ProfileCard {
 
   get formattedBirthDate(): string {
     return this.user ? formatDate(this.user.birthDate) : '';
+  }
+
+  onEdit() {
+    this.editEvent.emit(this.user.email); 
   }
 }

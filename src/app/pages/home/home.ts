@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { PaginatorState } from 'primeng/paginator';
 import { SidebarService } from '../../services/sidebar.service';
+import { URL } from '../../services/shared/strings';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +20,19 @@ import { SidebarService } from '../../services/sidebar.service';
 export class Home implements OnInit {
   private router = inject(Router)
   store = inject(Store)
+  sideBarService = inject(SidebarService)
   
   users$: Observable<User[]> = this.store.select(paginatedUsersSelector);
   usersLength$ = this.store.select(usersLengthSelector);
   loggedUser$: Observable<User | null> = this.store.select(userDetailsSelector)
   filters$ = this.store.select((state) => state.usersState.filters);
+  
+  modalVisible = false;
+  userToDelete: User | null = null;
+  modalConfirmationText!: string
+
+  editModalVisible = false;
+  userToEdit: User | null = null;
 
   constructor(public sidebarService: SidebarService) {}
 
@@ -42,17 +51,33 @@ export class Home implements OnInit {
   }
 
   createNew() {
-    this.router.navigate(['/cadastro']);
+    this.router.navigate([URL.CADASTRO_URL]);
   }
 
-  editUser(user: User) {
-
+  editUser(email: string) {
+    this.sideBarService.close()
+    this.router.navigate([`${URL.EDIT_URL}/${email}`]);
   }
 
   deleteUser(user: User) {
-    if (confirm(`Tem certeza que deseja remover o cliente ${user.name}?`)) {
-      this.store.dispatch(userActions.deleteUser({ id: user.id }));
+    this.userToDelete = user;
+    this.modalVisible = true;
+
+    this.modalConfirmationText = `Tem certeza que deseja excluir o cliente ${this.userToDelete?.name} ?`
+  }
+
+  onConfirmDelete() {
+    if (this.userToDelete) {
+      this.store.dispatch(userActions.deleteUser({ id: this.userToDelete.id }));
     }
+
+    this.modalVisible = false;
+    this.userToDelete = null;
+  }
+
+  onCancelDelete() {
+    this.modalVisible = false;
+    this.userToDelete = null;
   }
 
   onPageChange(event: PaginatorState) {
@@ -64,8 +89,9 @@ export class Home implements OnInit {
       pageSize: pageSize as number
     }));
   }
-  
+
   logout() {
+    this.sideBarService.close()
     localStorage.clear()
     this.router.navigate(['login'])
   }

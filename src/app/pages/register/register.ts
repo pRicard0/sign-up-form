@@ -4,8 +4,7 @@ import { ConstructorsService } from '../../services/constructors.service';
 import { SharedModule } from '../../services/shared/shared.modules';
 import { CountryService } from '../../services/country.service';
 import { CreateEdit } from '../../services/create-edit';
-import { buildUserForm } from '../../services/shared/user-form.builder';
-import { TOASTMESSAGE } from '../../services/shared/toast-message';
+import { TOASTMESSAGE } from '../../services/shared/strings';
 
 @Component({
   selector: 'app-register',
@@ -21,9 +20,8 @@ export class Register extends CreateEdit {
     super(inject(FormBuilder), inject(CountryService))
   }
 
-
   ngOnInit() {
-    this.formValue = buildUserForm(this.dep.fb); 
+    this.formValue = this.buildForm(); 
 
     this.countryService.getCountries().subscribe(countries => {
       this.setCountryValidator(countries);
@@ -38,7 +36,7 @@ export class Register extends CreateEdit {
         this.messageService.add({
           severity: 'success',
           summary: 'Sucesso',
-          detail: TOASTMESSAGE.CREATESUCCESS
+          detail: TOASTMESSAGE.CREATE_SUCCESS
         });
 
         if(this.isLogged) {

@@ -283,19 +283,6 @@
   ],
   "users": [
     {
-      "id": "f965",
-      "name": "Teste2",
-      "email": "teste2@g.com",
-      "cpf": "",
-      "birthDate": "2025-08-01T03:00:00.000Z",
-      "numberType": {
-        "name": "Residencial"
-      },
-      "number": "1223333332",
-      "country": "Estados Unidos",
-      "state": "California"
-    },
-    {
       "id": "54d1",
       "name": "Carla Mendes",
       "email": "carla.mendes92@gmail.com",
@@ -309,7 +296,6 @@
       "state": "Buenos Aires"
     },
     {
-      "id": "ca29",
       "name": "Rafael Tavares",
       "email": "rafael.tavares84@yahoo.com",
       "cpf": "78524830387",
@@ -319,7 +305,8 @@
       },
       "number": "8599999999",
       "country": "Brasil",
-      "state": "Ceará"
+      "state": "Bahia",
+      "id": "ca29"
     },
     {
       "id": "f3d5",
@@ -426,19 +413,6 @@
       "state": "Ceará"
     },
     {
-      "id": "7d2f",
-      "name": "Paulo Ricardo Barbosa",
-      "email": "pauloricardo.2011@gmail.com",
-      "cpf": "11111111111",
-      "birthDate": "2004-02-13T03:00:00.000Z",
-      "numberType": {
-        "name": "Celular"
-      },
-      "number": "85999999998",
-      "country": "Brasil",
-      "state": "Ceará"
-    },
-    {
       "id": "0e20",
       "name": "Teste50",
       "email": "teste50@gmail.com",
@@ -476,6 +450,58 @@
       "number": "2222222222",
       "country": "Alemanha",
       "state": "Berlim"
+    },
+    {
+      "id": "45a1",
+      "name": "Teste2 Consolado",
+      "email": "teste2@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-01T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "5232222222",
+      "country": "Austrália",
+      "state": "New South Wales"
+    },
+    {
+      "id": "189e",
+      "name": "Teste Cinquenta E Três",
+      "email": "cinquentaetres@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-01T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "8592392222",
+      "country": "Brasil",
+      "state": "Bahia"
+    },
+    {
+      "id": "0fe6",
+      "name": "Paulo Ricardo Barbosa",
+      "email": "pauloricardo.2011@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-08-04T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "1245555555",
+      "country": "Brasil",
+      "state": "Ceará"
+    },
+    {
+      "id": "9fa7",
+      "name": "Richard Rabelo",
+      "email": "paulorabelo@gmail.com",
+      "cpf": "11111111111",
+      "birthDate": "2025-01-13T03:00:00.000Z",
+      "numberType": {
+        "name": "Residencial"
+      },
+      "number": "2322222222",
+      "country": "Brasil",
+      "state": "Rio Grande Do Norte"
     }
   ]
 }

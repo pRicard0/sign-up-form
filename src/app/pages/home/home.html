@@ -25,7 +25,7 @@
                     pButton
                     icon="pi pi-pencil"
                     class="p-button-warning"
-                    (click)="editUser(user)">
+                    (click)="editUser(user.email)">
                   </button>
                   <button
                     pButton
@@ -59,10 +59,16 @@
       class="fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg"
     >
       @if (loggedUser$ | async; as loggedUser) {
-        <app-profile-card [user]="loggedUser" [logout]="logout.bind(this)" />
-      } @else {
-        <app-profile-card [user]="null" [logout]="logout.bind(this)" />
+        <app-profile-card [user]="loggedUser" [logout]="logout.bind(this)" (editEvent)="editUser($event)"/>
       }
     </div>
   }
+
+  <app-modal-confirmation
+    [visible]="modalVisible"
+    [title]="'Confirmar exclusão'"
+    [description]="modalConfirmationText"
+    (cancel)="onCancelDelete()"
+    (confirm)="onConfirmDelete()"
+  />
 </main>
