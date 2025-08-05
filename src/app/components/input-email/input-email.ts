@@ -33,6 +33,9 @@ export class InputEmail {
       if (control.hasError('email')) {
         return 'Email inválido';
       }
+      if (control.hasError('emailExists')) {
+        return 'Este e-mail já está cadastrado';
+      }
     }
     return null
   }

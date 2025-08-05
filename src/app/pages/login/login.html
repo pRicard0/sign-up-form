@@ -10,7 +10,7 @@
         <a routerLink="/cadastro">Não tem uma conta?</a>
       </div>
 
-      <button pButton type="submit" [disabled]="" class="mt-4 py-3 w-full text-lg">
+      <button pButton type="submit" [disabled]="loginForm.invalid" class="mt-4 py-3 w-full text-lg">
           <span pButtonLabel>Login</span>
       </button>
     </form>

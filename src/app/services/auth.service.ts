@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterPostData } from '../interfaces/registerPostData';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -17,6 +17,12 @@ export class AuthService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`)
+  }
+
+  getUserByEmail(email: string): Observable<User | null> {
+    return this.http.get<User[]>(`${this.baseUrl}/users?email=${email}`).pipe(
+        map(users => users.length > 0 ? users[0] : null)
+    );
   }
 
   getUserDetails(email: string): Observable<User[]> {

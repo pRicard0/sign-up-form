@@ -5,11 +5,12 @@ import { userActions } from '../../store/user.actions';
 import { Store } from '@ngrx/store';
 import { userDetailsSelector, paginatedUsersSelector, usersLengthSelector } from '../../store/user.selectors';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { PaginatorState } from 'primeng/paginator';
 import { SidebarService } from '../../services/sidebar.service';
 import { URL } from '../../services/shared/strings';
+import { filteredUsersSelector } from '../../store/country.selectors';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +22,12 @@ export class Home implements OnInit {
   private router = inject(Router)
   store = inject(Store)
   sideBarService = inject(SidebarService)
+
+  loggedEmail = localStorage.getItem('email');
   
-  users$: Observable<User[]> = this.store.select(paginatedUsersSelector);
+  users$ = this.store.select(filteredUsersSelector).pipe(
+    map(users => users.filter(user => user.email !== this.loggedEmail))
+  );
   usersLength$ = this.store.select(usersLengthSelector);
   loggedUser$: Observable<User | null> = this.store.select(userDetailsSelector)
   filters$ = this.store.select((state) => state.usersState.filters);
@@ -39,14 +44,19 @@ export class Home implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(userActions.getUsers());
 
+    this.users$.forEach((user) => {
+      console.log(user)
+    })
+    
+
     const email = localStorage.getItem('email');
-    console.log(email)
     if (email) {
       this.store.dispatch(userActions.getUserDetails({ email }));
     }
   }
 
-  onFiltersChanged(filters: { country: any; state: any }) {
+  onFiltersChanged(filters: { country: Country | null; state: State | null }) {
+    console.log("filtros:", filters);
     this.store.dispatch(userActions.setFilters({ filters }));
   }
 

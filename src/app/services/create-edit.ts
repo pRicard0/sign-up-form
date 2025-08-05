@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { URL } from './shared/strings';
+import { emailExistsValidator } from '../validators/email-exists.validator';
 
 export abstract class CreateEdit {
   protected minTextCharSize = 3;
@@ -29,10 +30,10 @@ export abstract class CreateEdit {
     this.countryService = countryService;
   }
 
-  buildForm(): FormGroup {
+  buildForm(originalEmail?: string): FormGroup {
     this.formValue = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(this.minTextCharSize), Validators.maxLength(this.maxTextCharSize)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], emailExistsValidator(this.authService, originalEmail)],
       cpf: ['', []],
       birthDate: ['', [Validators.required]],
       numberType: ['', [Validators.required]],
@@ -70,10 +71,15 @@ export abstract class CreateEdit {
       const isBrazil = matchedCountry?.name.toLowerCase() === 'brasil';
 
       if (isBrazil) {
-        cpfControl?.setValidators([Validators.required]);
+        cpfControl?.addValidators(Validators.required);
       } else {
-        cpfControl?.clearValidators();
+        const currentValidators = cpfControl?.validator ? [cpfControl.validator] : [];
+        const filteredValidators = currentValidators.filter(
+          v => v !== Validators.required
+        );
+        cpfControl?.setValidators(filteredValidators);
       }
+
       cpfControl?.updateValueAndValidity();
 
       if (matchedCountry) {
