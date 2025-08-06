@@ -426,21 +426,7 @@
       "state": "Roraima"
     },
     {
-      "id": "e641",
-      "name": "Dsadas",
-      "email": "testeeeee@ga",
-      "cpf": "11111111111",
-      "birthDate": "2025-08-01T03:00:00.000Z",
-      "numberType": {
-        "name": "Residencial"
-      },
-      "number": "5555555555",
-      "country": "Austrália",
-      "state": "New South Wales"
-    },
-    {
-      "id": "8713",
-      "name": "Testeeeee",
+      "name": "Testeee",
       "email": "testeeeeee@hotmail.com",
       "cpf": "11111111111",
       "birthDate": "2025-08-01T03:00:00.000Z",
@@ -449,7 +435,8 @@
       },
       "number": "2222222222",
       "country": "Alemanha",
-      "state": "Berlim"
+      "state": "Berlim",
+      "id": "8713"
     },
     {
       "id": "45a1",

@@ -20,7 +20,6 @@ interface AutoCompleteCompleteEvent {
       useFactory: () => inject(ControlContainer, {skipSelf: true})
     }
   ],
-  providers: [CountryService]
 })
 export class InputCountry {
   @Input() formGroup!: FormGroup;

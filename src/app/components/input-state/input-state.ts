@@ -28,7 +28,7 @@ export class InputState {
 
   ngOnInit() {
     this.formGroup.get('country')?.valueChanges.subscribe(country => {
-      const countryId = (typeof country === 'object') ? country.id : null;
+      const countryId = (country && typeof country === 'object') ? country.id : null;
 
       if (countryId) {
         this.countryService.getStatesByCountryId(countryId).subscribe(states => {

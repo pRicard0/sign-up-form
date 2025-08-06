@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterPostData } from '../interfaces/registerPostData';
 import { map, Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { User } from '../interfaces/user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService  {
   private baseUrl = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 

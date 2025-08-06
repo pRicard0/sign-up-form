@@ -30,7 +30,7 @@ export class Register extends CreateEdit {
     this.isLogged = localStorage.getItem('email')
   }
 
-  protected override onSubmit(formattedData: any): void {
+  override onSubmit(formattedData: any): void {
     this.authService.registerUser(formattedData).subscribe({
       next: () => {
         this.messageService.add({

@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { SharedModule } from '../../services/shared/shared.modules';
-import { ConstructorsService } from '../../services/constructors.service';
 import { CountryService } from '../../services/country.service';
 import { CreateEdit } from '../../services/create-edit';
 import { AuthService } from '../../services/auth.service';
@@ -17,14 +16,13 @@ import { emailExistsValidator } from '../../validators/email-exists.validator';
   providers: [CountryService]
 })
 export class EditUser extends CreateEdit {
-  private userService = inject(AuthService);
   private route = inject(ActivatedRoute);
-  private userId!: string;
+  userId!: string;
 
   email!: string | null;
   loggedEmail = localStorage.getItem('email')
 
-  constructor(private dep: ConstructorsService) {
+  constructor() {
     super(inject(FormBuilder), inject(CountryService));
   }
 
@@ -40,7 +38,7 @@ export class EditUser extends CreateEdit {
   }
 
   loadUserData(email: string) {
-    this.userService.getUserDetails(email).subscribe(user => {
+    this.authService.getUserDetails(email).subscribe(user => {
       const birthDateString = user[0].birthDate;
       const birthDateObj = birthDateString ? new Date(birthDateString) : null;
       this.userId = user[0].id;
@@ -58,21 +56,21 @@ export class EditUser extends CreateEdit {
 
       const emailControl = this.formValue.get('email');
       if (emailControl) {
-        emailControl.setAsyncValidators(emailExistsValidator(this.userService, user[0].email));
+        emailControl.setAsyncValidators(emailExistsValidator(this.authService, user[0].email));
         emailControl.updateValueAndValidity();
       }
       this.setCountryValidator(this.countries);
     });
   }
 
-  protected override onSubmit(formattedData: User): void {
+  override onSubmit(formattedData: User): void {
     const updatedUser = { ...formattedData, id: this.userId };
 
     if (this.loggedEmail == this.email && this.email !== null) {
       localStorage.setItem('email', formattedData.email)
     }
 
-    this.userService.updateUser(updatedUser).subscribe({
+    this.authService.updateUser(updatedUser).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',

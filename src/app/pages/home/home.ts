@@ -42,12 +42,7 @@ export class Home implements OnInit {
   constructor(public sidebarService: SidebarService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(userActions.getUsers());
-
-    this.users$.forEach((user) => {
-      console.log(user)
-    })
-    
+    this.store.dispatch(userActions.getUsers());    
 
     const email = localStorage.getItem('email');
     if (email) {

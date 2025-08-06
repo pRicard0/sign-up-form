@@ -20,4 +20,21 @@ describe('ModalConfirmation', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit onCancel event on onCancel()', () => {
+    spyOn(component.cancel, 'emit');
+
+    component.onCancel();
+
+    expect(component.cancel.emit).toHaveBeenCalled();
+  });
+
+  
+  it('should emit onConfirm event on onConfirm()', () => {
+    spyOn(component.confirm, 'emit');
+
+    component.onConfirm();
+
+    expect(component.confirm.emit).toHaveBeenCalled();
+  });
 });

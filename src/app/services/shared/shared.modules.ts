@@ -12,7 +12,7 @@ import { DatePicker } from '../../components/date-picker/date-picker';
 import { InputNumber } from '../../components/input-number/input-number';
 import { InputCountry } from '../../components/input-country/input-country';
 import { InputState } from '../../components/input-state/input-state';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProfileCard } from '../../components/profile-card/profile-card';
 import { ClientCard } from '../../components/client-card/client-card';
 import { ClientFilters } from '../../components/client-filters/client-filters';
@@ -40,7 +40,7 @@ import { ModalConfirmation } from '../../components/modal-confirmation/modal-con
     ClientFilters,
     PaginatorModule,
     Header,
-    ModalConfirmation
+    ModalConfirmation,
   ],
   exports: [
     ReactiveFormsModule,

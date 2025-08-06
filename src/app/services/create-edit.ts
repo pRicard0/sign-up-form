@@ -14,7 +14,7 @@ export abstract class CreateEdit {
   protected minTextCharSize = 3;
   protected maxTextCharSize = 120;
   protected fb: FormBuilder;
-  protected countryService: CountryService;
+  countryService: CountryService;
   protected countries: Country[] = [];
   protected states: State[] = [];
 
