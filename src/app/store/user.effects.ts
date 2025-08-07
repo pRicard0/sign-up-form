@@ -8,7 +8,6 @@ export const getUsersEffect = createEffect(
   (actions = inject(Actions), authService = inject(AuthService)) => {
     return actions.pipe(
       ofType(userActions.getUsers),
-      tap(() => console.log("passando pelo getusers")),
       switchMap(() => authService.getUsers().pipe(
           map(users => userActions.loadedUsers({ users }))
       ))
@@ -20,7 +19,6 @@ export const getUserDetailsEffect = createEffect(
   (actions = inject(Actions), authService = inject(AuthService)) => {
     return actions.pipe(
       ofType(userActions.getUserDetails),
-      tap(() => console.log("passando pelo getuserdetails")),
       switchMap(({ email }) =>
         authService.getUserDetails(email).pipe(
           map((users) => {

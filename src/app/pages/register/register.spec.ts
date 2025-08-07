@@ -7,7 +7,8 @@ import { MessageService } from 'primeng/api';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { TOASTMESSAGE } from '../../services/shared/strings';
+import { TOASTMESSAGE, URL } from '../../services/shared/strings';
+import { StoreModule } from '@ngrx/store';
 
 
 describe('Register', () => {
@@ -16,7 +17,10 @@ describe('Register', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [
+        SharedModule,
+        StoreModule.forRoot({})
+      ],
       providers: [
         provideHttpClient(),
         provideEnvironmentNgxMask(),
@@ -70,7 +74,7 @@ describe('Register', () => {
       summary: 'Sucesso',
       detail: TOASTMESSAGE.CREATE_SUCCESS
     }));
-    expect(component.router.navigate).toHaveBeenCalledWith(['home']);
+    expect(component.router.navigate).toHaveBeenCalledWith([URL.HOME_URL]);
   });
 
   it('should show success message and navigate to login if isLogged is not set', () => {
@@ -87,24 +91,24 @@ describe('Register', () => {
       summary: 'Sucesso',
       detail: TOASTMESSAGE.CREATE_SUCCESS
     }));
-    expect(component.router.navigate).toHaveBeenCalledWith(['login']);
+    expect(component.router.navigate).toHaveBeenCalledWith([URL.LOGIN_URL]);
   });
 
   it('should show error message when registerUser errors', () => {
     const mockError = new Error('fail');
+
+    spyOn(console, 'error');
     spyOn(component.authService, 'registerUser').and.returnValue(throwError(() => mockError));
     spyOn(component.messageService, 'add');
-    spyOn(console, 'error');
 
     component.onSubmit({});
 
     expect(component.authService.registerUser).toHaveBeenCalled();
-    expect(console.error).toHaveBeenCalledWith(mockError);
+    expect(console.error).toHaveBeenCalledWith(jasmine.any(String), mockError);
     expect(component.messageService.add).toHaveBeenCalledWith(jasmine.objectContaining({
       severity: 'error',
       summary: 'Erro',
       detail: TOASTMESSAGE.ERROR
     }));
   });
-
 });

@@ -6,7 +6,6 @@ import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/h
 import { TOASTMESSAGE } from '../services/shared/strings';
 import { TimeoutError, catchError, firstValueFrom, of, throwError } from 'rxjs';
 
-// Mocks
 class MockMessageService {
   add = jasmine.createSpy('add');
 }
@@ -37,7 +36,7 @@ describe('HttpErrorInterceptor', () => {
     const interceptor = createInterceptor();
 
     await firstValueFrom(interceptor(dummyRequest, next).pipe(
-      catchError(() => of(null)) // intercepta para não deixar o teste falhar
+      catchError(() => of(null)) 
     ));
 
     expect(messageService.add).toHaveBeenCalledWith(jasmine.objectContaining({

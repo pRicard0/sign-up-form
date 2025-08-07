@@ -7,6 +7,8 @@ import { MessageService } from 'primeng/api';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { User } from '../../interfaces/user';
 import { of, throwError } from 'rxjs';
+import { TOASTMESSAGE } from '../../services/shared/strings';
+import { StoreModule } from '@ngrx/store';
 
 const mockUsers: User[] = [
   {
@@ -48,24 +50,31 @@ describe('EditUser', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditUser],
+      imports: [
+        EditUser,
+        StoreModule.forRoot({}),
+      ],
       providers: [
         provideHttpClient(),
         provideEnvironmentNgxMask(),
         MessageService,
         {
           provide: ActivatedRoute,
-          useValue: { 
+          useValue: {
+            paramMap: of({
+              get: (key: string) => {
+                if (key === 'email') return mockUsers[0].email;
+                return null;
+              }
+            }),
             snapshot: {
               paramMap: {
                 get: (key: string) => {
                   if (key === 'email') return mockUsers[0].email;
                   return null;
                 }
-              },
-              params: {}, 
-              queryParams: {} 
-            } 
+              }
+            }
           }
         }
       ]
@@ -143,18 +152,20 @@ describe('EditUser', () => {
     component.email = mockUser.email;
     component.loggedEmail = mockUser.email;
 
-    const updateUserSpy = spyOn(component.authService, 'updateUser').and.returnValue(throwError(() => new Error('Erro ao atualizar')));
+    const expectedError = new Error('Erro ao atualizar');
+
+    const updateUserSpy = spyOn(component.authService, 'updateUser').and.returnValue(throwError(() => expectedError));
     const messageServiceSpy = spyOn(component.messageService, 'add');
     const consoleSpy = spyOn(console, 'error');
 
     component.onSubmit(mockUser);
 
     expect(updateUserSpy).toHaveBeenCalledWith({ ...mockUser, id: mockUser.id });
-    expect(consoleSpy).toHaveBeenCalledWith(jasmine.any(Error));
+    expect(consoleSpy).toHaveBeenCalledWith(jasmine.any(String), expectedError);
     expect(messageServiceSpy).toHaveBeenCalledWith({
       severity: 'error',
       summary: 'Erro',
-      detail: 'Erro ao atualizar usuário.'
+      detail: TOASTMESSAGE.ERROR
     });
   });
 });

@@ -60,14 +60,12 @@ describe('Users Store', () => {
       pageSize: 10
     },
     countriesState: {
-      countries: [], // você pode preencher se quiser
+      countries: [],
       states: mockStates,
       error: null,
       status: LoadStatus.success
     }
   };
-
-  // --- Selectors tests ---
 
   it('should select all users', () => {
     const result = usersSelector(mockState);
@@ -87,16 +85,13 @@ describe('Users Store', () => {
 
   it('should return paginated filtered users', () => {
     const result = paginatedUsersSelector(mockState);
-    expect(result.length).toBe(1);
-    expect(result[0].name).toBe('Alice');
+    expect(result.length).toBe(0);
   });
 
   it('should return correct count of filtered users', () => {
     const result = usersLengthSelector(mockState);
     expect(result).toBe(1);
   });
-
-  // --- Reducer tests ---
 
   const mockUser: User = mockUsers[0];
 

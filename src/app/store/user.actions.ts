@@ -12,6 +12,7 @@ const deleteUserSuccess = createAction('[Users] Delete User Success', props<{ id
 
 const setFilters = createAction('[Users] Set Filters', props<{ filters: { country: Country | null; state: State | null } }>());
 const setPage = createAction('[User] Set Page', props<{ page: number; pageSize: number }>());
+const resetFilters = createAction('[User] Reset Filters');
 
 
 export const userActions = {
@@ -22,5 +23,6 @@ export const userActions = {
     deleteUser,
     deleteUserSuccess,
     setFilters,
-    setPage
+    setPage,
+    resetFilters
 }

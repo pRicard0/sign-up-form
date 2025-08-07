@@ -1,5 +1,7 @@
+<app-header />
+
 <main class="card-container">
-  <p-card header="Editar Usuário" class="min-w-[15rem]">
+  <p-card header="Editar usuário" class="min-w-[15rem] mt-10">
     <form [formGroup]="formValue" (ngSubmit)="submit()" class="flex flex-col space-y-2">
       
       <app-input-name
@@ -54,16 +56,31 @@
           [controlName]="'number'"
           [typeControlName]="'numberType'"
         />
-
-        <div class="link mt-2">
-          <a [routerLink]="URL.HOME_URL">Voltar</a>
-        </div>
       </div>
 
       <button pButton type="submit" [disabled]="formValue.invalid" class="mt-4 py-3 w-full text-lg">
         <span pButtonLabel>Salvar Alterações</span>
       </button>
+      <button class="mt-4 w-full text-lg text-blue-500 font-bold hover:cursor-pointer hover:underline" (click)="logout()">
+        <a [routerLink]="URL.HOME_URL">Voltar</a>
+      </button>
     </form>
   </p-card>
+
+
+  @if (sideBarService.isOpen(); as open) {
+    <div
+      class="fixed inset-0 bg-black opacity-50 z-40"
+      (click)="sideBarService.close()"
+    ></div>
+
+    <div
+      class="fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg"
+    >
+      @if (loggedUser$ | async; as loggedUser) {
+        <app-profile-card [user]="loggedUser" [logout]="logout.bind(this)" (editEvent)="editUser($event)"/>
+      }
+    </div>
+  }
 </main>
 

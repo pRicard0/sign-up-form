@@ -9,7 +9,7 @@ export const routes: Routes = [
     { path: 'login', component: Login },
     { path: 'cadastro', component: Register },
     { path: 'home', component: Home, canActivate: [authGuard] },
-    { path: 'editar/:email', component: EditUser },
+    { path: 'editar/:email', component: EditUser, canActivate: [authGuard] },
     { path: '',
         redirectTo: 'home',
         pathMatch: 'full'

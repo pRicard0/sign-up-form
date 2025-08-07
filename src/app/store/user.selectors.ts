@@ -24,9 +24,10 @@ export const paginatedUsersSelector = createSelector(
   selectUserState,
   (users, filters, state) => {
     const filtered = users.filter(user => {
+      const isNotLoggedUser = user.email !== state.loggedUser?.email;
       const countryMatch = !filters.country || user.country === filters.country.name;
       const stateMatch = !filters.state || user.state === filters.state.name;
-      return countryMatch && stateMatch;
+      return isNotLoggedUser && countryMatch && stateMatch;
     });
 
     const startIndex = state.page * state.pageSize;

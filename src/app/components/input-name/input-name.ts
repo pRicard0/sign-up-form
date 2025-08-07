@@ -1,5 +1,5 @@
-import { Component, inject, Input } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -8,13 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './input-name.html',
-  styleUrl: './input-name.css',
-  viewProviders: [
-    { 
-      provide: ControlContainer, 
-      useFactory: () => inject(ControlContainer, {skipSelf: true})
-    }
-  ]
+  styleUrl: './input-name.css'
 })
 export class InputName {
   @Input() formGroup!: FormGroup;

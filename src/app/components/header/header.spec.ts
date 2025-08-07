@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Header } from './header';
 import { SidebarService } from '../../services/sidebar.service';
 import { By } from '@angular/platform-browser';
-import { provideRouter, RouterModule } from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 describe('Header', () => {
   let component: Header;

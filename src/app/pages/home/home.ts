@@ -5,12 +5,13 @@ import { userActions } from '../../store/user.actions';
 import { Store } from '@ngrx/store';
 import { userDetailsSelector, paginatedUsersSelector, usersLengthSelector } from '../../store/user.selectors';
 import { AsyncPipe } from '@angular/common';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { PaginatorState } from 'primeng/paginator';
 import { SidebarService } from '../../services/sidebar.service';
-import { URL } from '../../services/shared/strings';
-import { filteredUsersSelector } from '../../store/country.selectors';
+import { TOASTMESSAGE, URL } from '../../services/shared/strings';
+import { MessageService } from 'primeng/api';
+import { LogService } from '../../services/log.service';
 
 @Component({
   selector: 'app-home',
@@ -20,14 +21,15 @@ import { filteredUsersSelector } from '../../store/country.selectors';
 })
 export class Home implements OnInit {
   private router = inject(Router)
+  private messageService = inject(MessageService)
   store = inject(Store)
   sideBarService = inject(SidebarService)
+  logService = inject(LogService)
+  
 
   loggedEmail = localStorage.getItem('email');
   
-  users$ = this.store.select(filteredUsersSelector).pipe(
-    map(users => users.filter(user => user.email !== this.loggedEmail))
-  );
+  users$ = this.store.select(paginatedUsersSelector);
   usersLength$ = this.store.select(usersLengthSelector);
   loggedUser$: Observable<User | null> = this.store.select(userDetailsSelector)
   filters$ = this.store.select((state) => state.usersState.filters);
@@ -51,7 +53,6 @@ export class Home implements OnInit {
   }
 
   onFiltersChanged(filters: { country: Country | null; state: State | null }) {
-    console.log("filtros:", filters);
     this.store.dispatch(userActions.setFilters({ filters }));
   }
 
@@ -78,6 +79,13 @@ export class Home implements OnInit {
 
     this.modalVisible = false;
     this.userToDelete = null;
+
+    this.logService.info(TOASTMESSAGE.DELETE_SUCCESS)
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: TOASTMESSAGE.DELETE_SUCCESS
+    });
   }
 
   onCancelDelete() {
@@ -98,6 +106,16 @@ export class Home implements OnInit {
   logout() {
     this.sideBarService.close()
     localStorage.clear()
-    this.router.navigate(['login'])
+
+    this.store.dispatch(userActions.resetFilters());
+
+    this.logService.info(TOASTMESSAGE.LOGOUT_SUCCESS)
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: TOASTMESSAGE.LOGOUT_SUCCESS
+    });
+
+    this.router.navigate([URL.LOGIN_URL])
   }
 }

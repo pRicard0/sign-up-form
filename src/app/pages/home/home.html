@@ -16,27 +16,33 @@
           </button>
         </div>
         @if (users$ | async; as users) {
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @for (user of users; track user.id) {
-              <div class="p-2">
-                <app-client-card [user]="user"></app-client-card>
-                <div class="flex gap-2 mt-2 justify-end">
-                  <button
-                    pButton
-                    icon="pi pi-pencil"
-                    class="p-button-warning"
-                    (click)="editUser(user.email)">
-                  </button>
-                  <button
-                    pButton
-                    icon="pi pi-trash"
-                    class="p-button-danger"
-                    (click)="deleteUser(user)">
-                  </button>
+          @if (users.length > 0) {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              @for (user of users; track user.id) {
+                <div class="p-2">
+                  <app-client-card [user]="user"></app-client-card>
+                  <div class="flex gap-2 mt-2 justify-end">
+                    <button
+                      pButton
+                      icon="pi pi-pencil"
+                      class="p-button-warning"
+                      (click)="editUser(user.email)">
+                    </button>
+                    <button
+                      pButton
+                      icon="pi pi-trash"
+                      class="p-button-danger"
+                      (click)="deleteUser(user)">
+                    </button>
+                  </div>
                 </div>
-              </div>
-            }
-          </div>
+              }
+            </div>
+          } @else {
+            <div class="text-center text-gray-500 mt-8">
+              Nenhum usuário encontrado.
+            </div>
+          }
         }
       </div>
       <p-paginator

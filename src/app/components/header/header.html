@@ -1,13 +1,12 @@
 <header
-  class="bg-white h-12 border-b border-gray-200 flex items-center px-6 shrink-0"
+  class="w-full fixed z-50 bg-white h-12 border-b border-gray-200 flex items-center px-6 shrink-0"
 >
   <button class="flex items-center pr-8 hover:cursor-pointer" (click)="toggleSidebar()">
     <i class="pi pi-bars text-3xl"></i>
   </button>
 
   <div class="text-xl space-x-6">
-    <a [routerLink]="URL.HOME_URL" class="hover:cursor-pointer">Home</a>
-    <a [routerLink]="URL.CADASTRO_URL" class="hover:cursor-pointer">Novo Cliente</a>
+    <a [routerLink]="URL.HOME_URL" class="hover:cursor-pointer hover:underline">Home</a>
+    <a [routerLink]="URL.CADASTRO_URL" class="hover:cursor-pointer hover:underline">Novo Cliente</a>
   </div>
 </header>
-

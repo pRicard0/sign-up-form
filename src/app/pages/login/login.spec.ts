@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { AuthService } from '../../services/auth.service';
 import { of } from 'rxjs';
+import { TOASTMESSAGE, URL } from '../../services/shared/strings';
 
 const mockUsers: User[] = [
   {
@@ -72,7 +73,7 @@ describe('Login', () => {
 
     expect(authService.getUserDetails).toHaveBeenCalledWith(email);
     expect(localStorage.getItem('email')).toBe(email);
-    expect(navigateSpy).toHaveBeenCalledWith(['home']);
+    expect(navigateSpy).toHaveBeenCalledWith([URL.HOME_URL]);
   });
 
   it('should show error message if user is not found', () => {
@@ -87,7 +88,7 @@ describe('Login', () => {
     expect(messageSpy).toHaveBeenCalledWith({
       severity: 'error',
       summary: 'Erro',
-      detail: 'Não existe uma conta com este email'
+      detail: TOASTMESSAGE.LOGIN_EMAIL_ERROR
     });
   });
 });

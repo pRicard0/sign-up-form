@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '../../services/country.service';
 
@@ -9,13 +9,7 @@ import { CountryService } from '../../services/country.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, AutoCompleteModule],
   templateUrl: './input-state.html',
-  styleUrl: './input-state.css',
-  viewProviders: [
-  {
-    provide: ControlContainer,
-    useFactory: () => inject(ControlContainer, { skipSelf: true })
-  }
-]
+  styleUrl: './input-state.css'
 })
 export class InputState {
   @Input() formGroup!: FormGroup;

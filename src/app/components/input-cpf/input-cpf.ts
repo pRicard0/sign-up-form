@@ -1,5 +1,5 @@
-import { Component, inject, Input } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxMaskDirective } from 'ngx-mask';
@@ -9,13 +9,7 @@ import { CpfValidatorDirective } from '../../validators/directives/cpf.validator
   selector: 'app-input-cpf',
   imports: [CommonModule, ReactiveFormsModule, InputTextModule, NgxMaskDirective, CpfValidatorDirective],
   templateUrl: './input-cpf.html',
-  styleUrl: './input-cpf.css',
-  viewProviders: [
-    { 
-      provide: ControlContainer, 
-      useFactory: () => inject(ControlContainer, {skipSelf: true})
-    }
-  ]
+  styleUrl: './input-cpf.css'
 })
 export class InputCpf {
   @Input() formGroup!: FormGroup;

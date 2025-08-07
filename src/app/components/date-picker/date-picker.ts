@@ -1,5 +1,5 @@
-import { Component, inject, Input } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DatePickerModule } from 'primeng/datepicker';
 
@@ -7,13 +7,7 @@ import { DatePickerModule } from 'primeng/datepicker';
   selector: 'app-date-picker',
   imports: [DatePickerModule, CommonModule, ReactiveFormsModule],
   templateUrl: './date-picker.html',
-  styleUrl: './date-picker.css',
-  viewProviders: [
-    { 
-      provide: ControlContainer, 
-      useFactory: () => inject(ControlContainer, {skipSelf: true})
-    }
-  ]
+  styleUrl: './date-picker.css'
 })
 export class DatePicker {
   @Input() formGroup!: FormGroup;

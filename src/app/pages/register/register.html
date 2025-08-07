@@ -1,5 +1,9 @@
+@if (isLogged){
+  <app-header/>
+}
+
 <main class="card-container">
-  <p-card header="Cadastre-se" class="min-w-[15rem]">
+  <p-card header="Crie uma conta" class="min-w-[15rem]" [ngClass]="isLogged ? 'mt-10' : ''">
     <form [formGroup]="formValue" (ngSubmit)="submit()" class="flex flex-col space-y-2">
       <app-input-name 
         [formGroup]="formValue" 
@@ -52,11 +56,7 @@
           [controlName]="'number'"
           [typeControlName]="'numberType'"
         />
-        @if (isLogged) {
-          <div class="link">
-            <a [routerLink]="URL.HOME_URL">Voltar</a>
-          </div>
-        } @else {
+        @if (!isLogged) {
           <div class="link">
             <a [routerLink]="URL.LOGIN_URL">Já tem uma conta?</a>
           </div>
@@ -66,6 +66,26 @@
       <button pButton type="submit" [disabled]="formValue.invalid" class="mt-4 py-3 w-full text-lg">
         <span pButtonLabel>Cadastrar</span>
       </button>
+      @if (isLogged) {
+        <button class="mt-4 w-full text-lg text-blue-500 font-bold hover:cursor-pointer hover:underline" (click)="logout()">
+          <a [routerLink]="URL.HOME_URL">Voltar</a>
+        </button>
+      }
     </form>
   </p-card>
+
+  @if (sideBarService.isOpen(); as open) {
+    <div
+      class="fixed inset-0 bg-black opacity-50 z-40"
+      (click)="sideBarService.close()"
+    ></div>
+
+    <div
+      class="fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg"
+    >
+      @if (loggedUser$ | async; as loggedUser) {
+        <app-profile-card [user]="loggedUser" [logout]="logout.bind(this)" (editEvent)="editUser($event)"/>
+      }
+    </div>
+  }
 </main>

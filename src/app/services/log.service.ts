@@ -14,7 +14,7 @@ export class LogService {
   private isDev = isDevMode();
 
   log(level: LogLevel, message: string, context?: any) {
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleString('pt-BR');
     const formattedMessage = `[${timestamp}] [${level}] ${message}`;
 
     if (this.isDev) {

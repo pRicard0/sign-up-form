@@ -85,4 +85,12 @@ export const userReducer = createReducer(
     page,
     pageSize
   })),
+
+  on(userActions.resetFilters, (state) => ({
+    ...state,
+    filters: {
+      country: null,
+      state: null
+    }
+  }))
 );

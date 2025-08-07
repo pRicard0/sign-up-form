@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '../../services/country.service';
@@ -13,13 +13,7 @@ interface AutoCompleteCompleteEvent {
   selector: 'app-input-country',
   imports: [CommonModule, ReactiveFormsModule, AutoCompleteModule],
   templateUrl: './input-country.html',
-  styleUrl: './input-country.css',
-  viewProviders: [
-    { 
-      provide: ControlContainer, 
-      useFactory: () => inject(ControlContainer, {skipSelf: true})
-    }
-  ],
+  styleUrl: './input-country.css'
 })
 export class InputCountry {
   @Input() formGroup!: FormGroup;
@@ -34,7 +28,6 @@ export class InputCountry {
   ngOnInit() {
     this.countryService.getCountries().subscribe((countries: Country[]) => {
       this.countriesList = countries;
-      console.log(this.countriesList);
     });
   }
 

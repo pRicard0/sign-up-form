@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { countryInListValidator } from '../validators/country-in-list.validator';
 import { stateInListValidator } from '../validators/state-in-list.validator';
 import { toTitleCase } from '../functions/toTitleCase';
@@ -7,14 +7,15 @@ import { inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { URL } from './shared/strings';
+import { TOASTMESSAGE, URL } from './shared/strings';
 import { emailExistsValidator } from '../validators/email-exists.validator';
+import { LogService } from './log.service';
+import { SidebarService } from './sidebar.service';
 
 export abstract class CreateEdit {
   protected minTextCharSize = 3;
   protected maxTextCharSize = 120;
   protected fb: FormBuilder;
-  countryService: CountryService;
   protected countries: Country[] = [];
   protected states: State[] = [];
 
@@ -22,6 +23,9 @@ export abstract class CreateEdit {
   public messageService = inject(MessageService)
   public router = inject(Router)
   public authService = inject(AuthService)
+  public logService = inject(LogService)
+  public sideBarService = inject(SidebarService)
+  public countryService: CountryService;
 
   public URL = URL
 
@@ -66,21 +70,20 @@ export abstract class CreateEdit {
 
     countryControl?.valueChanges.subscribe(value => {
       const countryName = typeof value === 'object' ? value.name : value;
-      const matchedCountry = this.countries.find(c => c.name.toLowerCase() === countryName?.toLowerCase());
+      const matchedCountry = this.countries.find(
+        c => c.name.toLowerCase() === countryName?.toLowerCase()
+      );
 
       const isBrazil = matchedCountry?.name.toLowerCase() === 'brasil';
 
-      if (isBrazil) {
-        cpfControl?.addValidators(Validators.required);
-      } else {
-        const currentValidators = cpfControl?.validator ? [cpfControl.validator] : [];
-        const filteredValidators = currentValidators.filter(
-          v => v !== Validators.required
-        );
-        cpfControl?.setValidators(filteredValidators);
+      if (cpfControl) {
+        if (isBrazil) {
+          cpfControl.addValidators(Validators.required);
+        } else {
+          cpfControl.removeValidators(Validators.required);
+        }
+        cpfControl.updateValueAndValidity();
       }
-
-      cpfControl?.updateValueAndValidity();
 
       if (matchedCountry) {
         this.countryService.getStatesByCountryId(matchedCountry.id).subscribe(states => {
@@ -100,6 +103,26 @@ export abstract class CreateEdit {
         stateControl?.updateValueAndValidity();
       }
     });
+  }
+
+
+  editUser(email: string) {
+    this.sideBarService.close()
+    this.router.navigate([`${URL.EDIT_URL}/${email}`]);
+  }
+
+  logout() {
+    this.sideBarService.close()
+    localStorage.clear()
+
+    this.logService.info(TOASTMESSAGE.LOGOUT_SUCCESS)
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: TOASTMESSAGE.LOGOUT_SUCCESS
+    });
+
+    this.router.navigate([URL.LOGIN_URL])
   }
 
   submit() {

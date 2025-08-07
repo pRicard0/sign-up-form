@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, waitForAsync } from '@angular/core/testing';
 import { InputEmail } from './input-email';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SharedModule } from '../../services/shared/shared.modules';

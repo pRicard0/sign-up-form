@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Home } from './home';
 import { provideHttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store, StateObservable, ActionsSubject, ReducerManager, ReducerManagerDispatcher, StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { userActions } from '../../store/user.actions';
 import { URL } from '../../services/shared/strings';
@@ -161,7 +161,7 @@ describe('Home', () => {
 
     expect(closeSpy).toHaveBeenCalled();
     expect(localStorageClearSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(['login']);
+    expect(navigateSpy).toHaveBeenCalledWith([URL.LOGIN_URL]);
   });
 
   it('should set userToDelete, show modal and set confirmation text on deleteUser', () => {

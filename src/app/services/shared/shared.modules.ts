@@ -43,6 +43,7 @@ import { ModalConfirmation } from '../../components/modal-confirmation/modal-con
     ModalConfirmation,
   ],
   exports: [
+    CommonModule,
     ReactiveFormsModule,
     CardModule,
     RouterLink,

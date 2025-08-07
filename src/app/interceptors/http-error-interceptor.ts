@@ -8,9 +8,11 @@ import {
 import { catchError, throwError, TimeoutError } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { TOASTMESSAGE } from '../services/shared/strings';
+import { LogService } from '../services/log.service';
 
 export const HttpErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
   const messageService = inject(MessageService);
+  const logService = inject(LogService)
 
   return next(req).pipe(
     catchError((error: any) => {
@@ -28,6 +30,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, n
         }
       }
 
+      logService.error(message)
       messageService.add({
         severity: 'error',
         summary: 'Erro',

@@ -3,24 +3,30 @@ import { FormBuilder } from '@angular/forms';
 import { SharedModule } from '../../services/shared/shared.modules';
 import { CountryService } from '../../services/country.service';
 import { CreateEdit } from '../../services/create-edit';
-import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { emailExistsValidator } from '../../validators/email-exists.validator';
+import { TOASTMESSAGE } from '../../services/shared/strings';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { userDetailsSelector } from '../../store/user.selectors';
+import { AsyncPipe } from '@angular/common';
+import { userActions } from '../../store/user.actions';
 
 @Component({
   selector: 'app-edit-user',
-  imports: [SharedModule],
+  imports: [SharedModule, AsyncPipe],
   templateUrl: './edit-user.html',
   styleUrl: './edit-user.css',
-  providers: [CountryService]
 })
 export class EditUser extends CreateEdit {
-  private route = inject(ActivatedRoute);
+  route = inject(ActivatedRoute);
+  store = inject(Store)
   userId!: string;
 
   email!: string | null;
   loggedEmail = localStorage.getItem('email')
+  loggedUser$: Observable<User | null> = this.store.select(userDetailsSelector)
 
   constructor() {
     super(inject(FormBuilder), inject(CountryService));
@@ -31,14 +37,32 @@ export class EditUser extends CreateEdit {
 
     this.countryService.getCountries().subscribe(countries => {
       this.setCountryValidator(countries);
-      this.email = this.route.snapshot.paramMap.get('email');
 
-      if (this.email) this.loadUserData(this.email);
+      this.route.paramMap.subscribe(paramMap => {
+        this.email = paramMap.get('email');
+        if (this.email) this.loadUserData(this.email);
+      });
     });
+
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.store.dispatch(userActions.getUserDetails({ email }));
+    }
   }
 
   loadUserData(email: string) {
     this.authService.getUserDetails(email).subscribe(user => {
+      if (!user || user.length === 0) {
+        this.logService.warn(TOASTMESSAGE.EDIT_NOTFOUND_WARN, `User: ${user}`)
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Atenção',
+            detail: TOASTMESSAGE.EDIT_NOTFOUND_WARN
+        });
+        this.router.navigate([this.URL.HOME_URL])
+
+        return;
+      }
       const birthDateString = user[0].birthDate;
       const birthDateObj = birthDateString ? new Date(birthDateString) : null;
       this.userId = user[0].id;
@@ -72,19 +96,20 @@ export class EditUser extends CreateEdit {
 
     this.authService.updateUser(updatedUser).subscribe({
       next: () => {
+        this.logService.info(TOASTMESSAGE.EDIT_SUCCESS, updatedUser)
         this.messageService.add({
           severity: 'success',
           summary: 'Sucesso',
-          detail: 'Usuário atualizado com sucesso!'
+          detail: TOASTMESSAGE.EDIT_SUCCESS
         });
         this.router.navigate([this.URL.HOME_URL]);
       },
       error: (err) => {
-        console.error(err);
+        this.logService.error(TOASTMESSAGE.ERROR, err)
         this.messageService.add({
           severity: 'error',
           summary: 'Erro',
-          detail: 'Erro ao atualizar usuário.'
+          detail: TOASTMESSAGE.ERROR
         });
       }
     });

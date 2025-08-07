@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn, Router } from '@angular/router';
 import { authGuard } from './auth-guard';
+import { URL } from '../services/shared/strings';
 
 describe('authGuard', () => {
   let routerNavigateSpy: jasmine.Spy;
@@ -37,6 +38,6 @@ describe('authGuard', () => {
     const result = executeGuard({} as any, {} as any);
 
     expect(result).toBeFalse();
-    expect(routerNavigateSpy).toHaveBeenCalledWith(['login']);
+    expect(routerNavigateSpy).toHaveBeenCalledWith([URL.LOGIN_URL]);
   });
 });

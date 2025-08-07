@@ -1,6 +1,4 @@
-import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
-import { SharedModule } from '../../services/shared/shared.modules';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { User } from '../../interfaces/user';
