@@ -3,6 +3,18 @@ Este é um projeto Angular focado no Frontend onde foi utilizado tecnologias/bib
 
 O projeto se define em um site para cadastrar clientes, fazer o login com sua própria conta e analisar os clientes já cadastrados em uma lista paginada com filtros de país e estado, com opções de deletar e editar clientes.
 
+# Como executar a aplicação?
+1. Baixe ou clone o projeto e abra a pasta que contém todos os arquivos e configurações no editor de código.
+2. Abra o terminal e execute `npm install` para baixar a biblioteca e dependências e aguarde a instalação.
+3. No mesmo terminal, execute `ng serve` para executar a aplicação.
+4. Abra um novo terminal e execute `json-server db.json` para ligar o servidor mockado e rodar a API. Após isso a aplicação está completamente funcional.
+
+Para a execução de testes unitários, execute em outro terminal o comando `ng test` para executar os testes. Para obter a porcentagem de cobertura de teste do código, execute `ng test --code-coverage`
+Obs: Para executar os comandos de teste é necessário ter o Google Chrome instalado
+
+Para observar a cobertura de código de maneira mais visual, após executar o comando de code coverage, busque no diretório do projeto a pasta "coverage" e após isso entre na pasta do projeto "sign-up-form" e execute o arquivo "index.html"
+`Projeto > coverage > sign-up-form > index.html`
+
 # Páginas
 ## Registro
 Na página de registro é um formulário com oito campos, sendo esses: nome, email, país, estado, CPF, data de nascimento, número de contato e o tipo do número (residencial, WhatsApp, celular). Praticamente todos os campos são obrigatório, tirando CPF em certas condições. Quando o usuário é registrado, aparece um toast e o redireciona para a página de Login caso seja uma operação bem sucedida e aparece erro, caso contrário. 
